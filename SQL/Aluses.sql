@@ -184,10 +184,10 @@ CREATE INDEX `fk_Plane_PlaneModel1_idx` ON `Aluses`.`Plane` (`modelCode` ASC);
 DROP TABLE IF EXISTS `Aluses`.`Seats` ;
 
 CREATE TABLE IF NOT EXISTS `Aluses`.`Seats` (
-  `SeatNumber` INT NOT NULL,
+  `seatNumber` INT NOT NULL,
   `modelCode` VARCHAR(45) NOT NULL,
-  `SeatClass` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`SeatNumber`),
+  `seatClass` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`seatNumber`),
   CONSTRAINT `fk_Seats_PlaneModel1`
     FOREIGN KEY (`modelCode`)
     REFERENCES `Aluses`.`PlaneModel` (`code`)

@@ -1,3 +1,6 @@
+from SQLConnection import DB
+
+
 class Person(object):
     def __init__(self, name, lastname, mail, password, idCrew, id_VIP_clients, id_Disabled_clients, id_Normal_clients):
         self.name = name
