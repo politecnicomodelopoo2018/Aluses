@@ -8,6 +8,17 @@ class Plane(object):
         self.Model = Model
         self.constructionDay = constructionDay
 
+    def InsertPlane(self):
+        Database = DB()
+        planeCursor = Database.run("INSERT INTO Plane VALUES(NULL, " + self.Model + ", " + self.constructionDay + ")")
+        self.idPlane = planeCursor.lastrowid
+
+    def UpdatePlane(self, modelCode, constructionDay):
+        Database = DB()
+        Database.run("UPDATE Plane SET modelCode = " + modelCode + ", constructionDay = " + constructionDay +
+                     " WHERE idPlane = " + self.idPlane + ";")
+        self.__init__(self.idPlane, PlaneModel.SelectPlaneModelsID(modelCode), constructionDay)  # Preguntar a pruchi si muero o no
+
     @staticmethod
     def SelectPlanes():
         Database = DB()
