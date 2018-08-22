@@ -23,6 +23,15 @@ class PlaneModel(object):
         Database.run("DELETE FROM PlaneModel WHERE code = + " + code + ";")
 
     @staticmethod
+    def SelectPlaneModelsID(modelCode):
+        Database = DB()
+        planeModelCursor = Database.run("SELECT * FROM PlaneModel WHERE code = " + modelCode + ";")
+        planeModelDict = planeModelCursor.fetchone()
+        model = PlaneModel.GetPlaneModel(planeModelDict)
+        Model = PlaneModel(model[0], model[1])
+        return Model
+
+    @staticmethod
     def SelectPlaneModels():
         Database = DB()
         planeModelCursor = Database.run("SELECT * FROM PlaneModel;")

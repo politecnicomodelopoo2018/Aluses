@@ -22,9 +22,5 @@ class Plane(object):
 
     @staticmethod
     def GetPlane(dic):
-        Database = DB()
-        planeModelCursor = Database.run("SELECT * FROM PlaneModel WHERE code = " + dic["modelCode"] + ";")
-        planeModelDict = planeModelCursor.fetchone()
-        model = PlaneModel.GetPlaneModel(planeModelDict)
-        Model = PlaneModel(model[0], model[1])
+        Model = PlaneModel.SelectPlaneModelsID(dic["modelCode"])
         return dic["idPlane"], Model, dic["constructionDay"]
