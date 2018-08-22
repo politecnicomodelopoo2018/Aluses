@@ -10,19 +10,21 @@ class Seats(object):
 
     def InsertSeats(self):
         Database = DB()
-        seatCursor = Database.run("INSERT INTO Seats VALUES(NULL, " + self.Model + ", " + self.seatClass + ")")
+        seatCursor = Database.run("INSERT INTO Seats VALUES(NULL, %s, %s);", (str(self.Model.code), self.seatClass))
         self.seatNumber = seatCursor.lastrowid
 
-    def UpdateSeats(self, modelCode, seatClass):
+    def UpdateSeats(self, Model, seatClass):
         Database = DB()
-        Database.run("UPDATE Seats SET modelCode = " + modelCode + ", seatClass = " + seatClass + " WHERE seatNumber = "
-                     + self.seatNumber + ";")
-        self.__init__(self.seatNumber, PlaneModel.SelectPlaneModelsID(modelCode), seatClass)  # Preguntar a pruchi si muero o no
+        Database.run("UPDATE Seats SET modelCode = %s, seatClass = %s WHERE seatNumber = %s ;", (str(Model.code),
+                                                                                                 seatClass,
+                                                                                                 str(self.seatNumber)))
+        self.Model = Model
+        self.seatClass = seatClass
 
     @staticmethod
     def DeleteSeats(seatNumber):
         Database = DB()
-        Database.run("DELETE * FROM Seats where seatNumber = " + seatNumber + ";")
+        Database.run("DELETE * FROM Seats where seatNumber = %s;", seatNumber)
 
     @staticmethod
     def SelectSeats():

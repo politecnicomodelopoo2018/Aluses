@@ -10,14 +10,16 @@ class Plane(object):
 
     def InsertPlane(self):
         Database = DB()
-        planeCursor = Database.run("INSERT INTO Plane VALUES(NULL, " + self.Model + ", " + self.constructionDay + ")")
+        planeCursor = Database.run("INSERT INTO Plane VALUES(NULL, %s, %s);", (str(self.Model),
+                                                                               str(self.constructionDay)))
         self.idPlane = planeCursor.lastrowid
 
-    def UpdatePlane(self, modelCode, constructionDay):
+    def UpdatePlane(self, Model, constructionDay):
         Database = DB()
-        Database.run("UPDATE Plane SET modelCode = " + modelCode + ", constructionDay = " + constructionDay +
-                     " WHERE idPlane = " + self.idPlane + ";")
-        self.__init__(self.idPlane, PlaneModel.SelectPlaneModelsID(modelCode), constructionDay)  # Preguntar a pruchi si muero o no
+        Database.run("UPDATE Plane SET modelCode = %s, constructionDay = %s WHERE idPlane = %s;",
+                     (str(Model.code), str(constructionDay), str(self.idPlane)))
+        self.Model = Model
+        self.constructionDay = constructionDay
 
     @staticmethod
     def SelectPlanes():
@@ -30,6 +32,15 @@ class Plane(object):
             plane = Plane(tmpPlane[0], tmpPlane[1], tmpPlane[2])
             planesList.append(plane)
         return planesList
+
+    @staticmethod
+    def SelectPlaneID(idPlane):
+        Database = DB()
+        planeCursor = Database.run("SELECT * FROM Plane WHERE idPlane = %s;", str(idPlane))
+        planeDict = planeCursor.fetchone()
+        tmpPlane = Plane.GetPlane(planeDict)
+        plane = Plane(tmpPlane[0], tmpPlane[1], tmpPlane[2])
+        return plane
 
     @staticmethod
     def GetPlane(dic):

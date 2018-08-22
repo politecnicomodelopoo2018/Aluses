@@ -9,6 +9,20 @@ class Flight(object):
         self.arrival = arrival
         self.Plane = Plane
 
+    def InsertFlight(self):
+        Database = DB()
+        flightCursor = Database.run("INSERT INTO Flight VALUES(NULL, %s, %s, %s);", (self.destination, self.arrival,
+                                                                                     str(self.Plane.idPlane)))
+        self.idFlight = flightCursor.lastrowid
+
+    def UpdateFlight(self, destination, arrival, Plane):
+        Database = DB()
+        Database.run("UPDATE Flight SET destination = %s, arrival = %s, idPlane = %s WHERE idFlight = %s;",
+                     (destination, arrival, str(Plane.idPlane), str(self.idFlight)))
+        self.destination = destination
+        self.arrival = arrival
+        self.Plane = Plane
+
     @staticmethod
     def SelectFlights():
         Database = DB()
@@ -24,7 +38,7 @@ class Flight(object):
     @staticmethod
     def GetFlight(dic):
         Database = DB()
-        planeCursor = Database.run("SELECT * FROM Plane WHERE idPlane = " + dic["idPlane"] + ";")
+        planeCursor = Database.run("SELECT * FROM Plane WHERE idPlane = %s;", str(dic["idPlane"]))
         planeDict = planeCursor.fetchone()
         tmpPlane = ClassPlane.GetPlane(planeDict)
         Plane = ClassPlane(tmpPlane[0], tmpPlane[1], tmpPlane[2])
