@@ -25,7 +25,7 @@ class PlaneModel(object):
     @staticmethod
     def SelectPlaneModelsID(modelCode):
         Database = DB()
-        planeModelCursor = Database.run("SELECT * FROM PlaneModel WHERE code = %s;", modelCode)
+        planeModelCursor = Database.run("SELECT * FROM PlaneModel WHERE code = %s;", str(modelCode))
         planeModelDict = planeModelCursor.fetchone()
         model = PlaneModel.GetPlaneModel(planeModelDict)
         Model = PlaneModel(model[0], model[1])
