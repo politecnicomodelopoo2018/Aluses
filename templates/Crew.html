@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crew</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width:30%;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        a {
+            color: #2b6e6f;
+        }
+    </style>
+</head>
+<body>
+    <table>
+    <tr>
+        <th>ID Persona</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>mail</th>
+        <th>dias de estancia</th>
+    </tr>
+    {% for item in listaCrew %}
+        <tr>
+            <td>{{ item.idPerson }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.lastname }}</td>
+            <td>{{ item.mail }}</td>
+            <td>{{ item.dayStaying }}</td>
+            <td><a href="EditCrew?idCrew={{item.idCrew}}">editar</a></td>
+            <td><a href="/deleteCrew?idCrew={{item.idCrew}}">borrar</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<br><a href="/insertarCrew">Agregar tripulante</a>
+</body>
+</html>
