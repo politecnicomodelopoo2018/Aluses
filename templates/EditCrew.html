@@ -6,9 +6,10 @@
 </head>
 <body>
     <form action="/editCrew" method="post">
-        <input type="hidden" name="idPerson" value="{{idPerson}}" readonly>
+        <input type="text" name="idCrew" value="{{idCrew}}" readonly><!-- hidden -->
         <input type="text" name="name" placeholder="Nuevo nombre">
         <input type="text" name="lastname" placeholder="Nuevo apellido">
+        <input type="email" name="mail" placeholder="ejemplo@dominio.com">
         <input type="text" name="dayStaying" placeholder="cantidad dias">
         <input type="submit" value="Sumbit">
     </form>

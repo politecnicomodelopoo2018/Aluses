@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert normal client</title>
+</head>
+<body>
+    <form action="/insertNormalClient" method="post">
+        <input type="text" name="name" placeholder="nombre" role="textbox">
+        <input type="text" name="lastname" placeholder="apellido" role="textbox">
+        <input type="email" name="mail" placeholder="mail" role="textbox">
+        <input type="password" name="password" placeholder="password">
+        <select class="Client" role="listbox">
+            <option value="NormalClient">Normal</option>
+            <option value="DisabledClient">Discapacitado</option>
+            <option value="TIPClient">VIP</option>
+        </select>
+        <input type="submit" value="Sumbit" role="button">
+    </form>
+</body>
+</html>

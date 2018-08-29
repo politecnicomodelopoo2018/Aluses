@@ -4,10 +4,8 @@ from ClassDiscount import Discount
 
 
 class NormalClients(Person):
-    def __init__(self, idPersona, name, lastname, mail, password, idCrew, id_VIP_clients, id_Disabled_clients,
-                 id_Normal_clients, DiscountObj):
-        Person.__init__(self, idPersona, name, lastname, mail, password, idCrew, id_VIP_clients, id_Disabled_clients,
-                        id_Normal_clients)
+    def __init__(self, idPersona, name, lastname, mail, password, id_Normal_clients, DiscountObj):
+        Person.__init__(self, idPersona, name, lastname, mail, password)
         self.id_Normal_clients = id_Normal_clients
         self.DiscountObj = DiscountObj
 
@@ -43,19 +41,19 @@ class NormalClients(Person):
         normalDict = normalCursor.fetchone()
         tmpClient = NormalClients.GetClient(normalDict)
         Client = NormalClients(tmpClient[0], tmpClient[1], tmpClient[2], tmpClient[3], tmpClient[4], tmpClient[5],
-                               tmpClient[6], tmpClient[7], tmpClient[8], tmpClient[9])
+                               tmpClient[6])
         return Client
 
     @staticmethod
     def SelectNormalClients():
         Database = DB()
-        normalCursor = Database.run("SELECT * FROM Normal_Clients;")
+        normalCursor = Database.run("SELECT * FROM Normal_clients;")
         normalDict = normalCursor.fetchall()
         normalLista = []
         for item in normalDict:
             tmpClient = NormalClients.GetClient(item)
             Client = NormalClients(tmpClient[0], tmpClient[1], tmpClient[2], tmpClient[3], tmpClient[4], tmpClient[5],
-                                   tmpClient[6], tmpClient[7], tmpClient[8], tmpClient[9])
+                                   tmpClient[6])
             normalLista.append(Client)
         return normalLista
 
@@ -63,5 +61,5 @@ class NormalClients(Person):
     def GetClient(dic):
         discount = Discount.SelectDiscountsID(dic["idDiscount"])
         person = Person.SelectPersonNormalID(dic["id_Normal_clients"])
-        return person[0], person[1], person[2], person[3], person[4], person[5], person[6], person[7], person[8],\
+        return person.idPersona, person.name, person.lastname, person.mail, person.password, dic["id_Normal_clients"],\
                discount

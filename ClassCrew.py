@@ -3,10 +3,8 @@ from ClassPerson import Person
 
 
 class Crew(Person):
-    def __init__(self, idPersona, name, lastname, mail, password, idCrew, id_VIP_clients, id_Disabled_clients,
-                 id_Normal_clients, dayStaying):
-        Person.__init__(self, idPersona, name, lastname, mail, password, idCrew, id_VIP_clients, id_Disabled_clients,
-                        id_Normal_clients)
+    def __init__(self, idPersona, name, lastname, mail, password, idCrew, dayStaying):
+        Person.__init__(self, idPersona, name, lastname, mail, password)
         self.idCrew = idCrew
         self.dayStaying = dayStaying
 
@@ -17,6 +15,7 @@ class Crew(Person):
         Person.InsertPersonCrew(self, name, lastname, mail, password, self.idCrew)
 
     def UpdateCrew(self, name, lastname, mail, password, dayStaying):
+        print(dayStaying)
         Database = DB()
         Person.UpdateCrewID(name, lastname, mail, password, self.idCrew)
         Database.run("UPDATE Crew SET dayStaying = %s WHERE idCrew = %s;", (str(dayStaying), str(self.idCrew)))
@@ -24,8 +23,8 @@ class Crew(Person):
     @staticmethod
     def DeleteCrewFlight(idCrew):
         Database = DB()
-        crew = Crew.SelectPersonNormalID(idCrew)
-        Database.run("DELETE FROM Flight_has_Person WHERE idPersona = %s;", crew.idPersona)
+        crew = Crew.SelectCrewID(idCrew)
+        Database.run("DELETE FROM Flight_has_Person WHERE idPerson = %s;", crew.idPersona)
 
     @staticmethod
     def DeleteCrew(idCrew):
@@ -37,11 +36,12 @@ class Crew(Person):
     @staticmethod
     def SelectCrewID(idCrew):
         Database = DB()
-        crewCursor = Database.run("SELECT * FROM Crew WHERE idCrew = %s;", idCrew)
+        crewCursor = Database.run("SELECT * FROM Crew WHERE idCrew = %s;", str(idCrew)) # OAJSSO
         crewDict = crewCursor.fetchone()
         tmpCrew = Crew.GetCrew(crewDict)
-        crew = Crew(tmpCrew[0], tmpCrew[1], tmpCrew[2], tmpCrew[3], tmpCrew[4], tmpCrew[5], tmpCrew[6], tmpCrew[7],
-                    tmpCrew[8], tmpCrew[9])
+        person = Person.SelectPersonCrewID(tmpCrew[5])
+        crew = Crew(person.idPersona, person.name, person.lastname, person.mail, person.password, tmpCrew[5],
+                    tmpCrew[6])
         return crew
 
     @staticmethod
@@ -52,13 +52,12 @@ class Crew(Person):
         crewLista = []
         for item in crewDict:
             tmpCrew = Crew.GetCrew(item)
-            crew = Crew(tmpCrew[0], tmpCrew[1], tmpCrew[2], tmpCrew[3], tmpCrew[4], tmpCrew[5],tmpCrew[6], tmpCrew[7],
-                        tmpCrew[8], tmpCrew[9])
+            crew = Crew(tmpCrew[0], tmpCrew[1], tmpCrew[2], tmpCrew[3], tmpCrew[4], tmpCrew[5], tmpCrew[6])
             crewLista.append(crew)
         return crewLista
 
     @staticmethod
     def GetCrew(dic):
         person = Person.SelectPersonCrewID(dic["idCrew"])
-        return person[0], person[1], person[2], person[3], person[4], person[5], person[6], person[7], person[8],\
+        return person.idPersona, person.name, person.lastname, person.mail, person.password, dic["idCrew"],\
                dic["dayStaying"]
