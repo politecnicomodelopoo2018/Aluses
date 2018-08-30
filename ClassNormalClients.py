@@ -9,11 +9,11 @@ class NormalClients(Person):
         self.id_Normal_clients = id_Normal_clients
         self.DiscountObj = DiscountObj
 
-    def InsertNormalClients(self, name, lastname, mail, password, idDiscount):
+    def InsertNormalClients(self):
         Database = DB()
-        normalCursor = Database.run("INSERT INTO Normal_clients VALUES(NULL, %s)", str(idDiscount))
+        normalCursor = Database.run("INSERT INTO Normal_clients VALUES(NULL, %s)", str(self.DiscountObj.idDiscount))
         self.id_Normal_clients = normalCursor.lastrowid
-        Person.InsertPersonNormalClient(self, name, lastname, mail, password, self.id_Normal_clients)
+        Person.InsertPersonNormalClient(self, self.name, self.lastname, self.mail, self.password, self.id_Normal_clients)
 
     def UpdateNormalClients(self, name, lastname, mail, password, discount):
         Database = DB()

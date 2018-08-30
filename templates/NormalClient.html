@@ -35,8 +35,8 @@
             <td>{{ item.lastname }}</td>
             <td>{{ item.mail }}</td>
             <td>{{ item.discount.percentDiscount }}</td>
-            <td><a href="/editarNormalClient?idNormalClient={{item.idNormalClient}}">editar</a></td>
-            <td><a href="/deleteNormalClient?idNormalClient={{item.idNormalClient}}">borrar</a></td>
+            <td><a href="/editarClient?idNormalClient={{item.idNormalClient}}">editar</a></td>
+            <td><a href="/deleteClient?idNormalClient={{item.idNormalClient}}">borrar</a></td>
         </tr>
     {% endfor %}
 </table>

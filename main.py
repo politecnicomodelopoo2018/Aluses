@@ -2,13 +2,15 @@ from SQLConnection import DB
 from flask import Flask, render_template, request, redirect
 from ClassCrew import Crew
 from ClassNormalClients import NormalClients
+from ClassDisabledClients import DisabledClients
+from ClassVIPClients import VIPClients
 from ClassDiscount import Discount
 
 
 app = Flask(__name__)
 
 Database = DB()
-Database.SetConnection("localhost", "root", "alumno", "Aluses")
+Database.SetConnection("localhost", "root", "Patuco20", "Aluses")
 
 
 @app.route('/home')
@@ -89,22 +91,27 @@ def editCrew():
     return redirect('/crew')
 """
 
-@app.route('/insertarNormalClient')
-def InsertarNormalClient():
-    return render_template('InsertNormalClient.html')
+@app.route('/insertarClient')
+def InsertarClient():
+    return render_template('InsertClient.html')
 
 
-@app.route('/insertNormalClient', methods=['GET', 'POST'])
-def InsertNormalClient():
-    idNormalClient = request.form.get('idNormalClient')
+@app.route('/insertClient', methods=['GET', 'POST'])
+def InsertClient():
     name = request.form.get('name')
     lastname = request.form.get('lastname')
     mail = request.form.get('mail')
     password = request.form.get('password')
-    idDiscount = request.form.get('idDiscount')
-    DiscountObj = Discount.SelectDiscountsID(idDiscount)
-    NormalClient = NormalClients("NULL", name, lastname, mail, password, idNormalClient, DiscountObj)
-    NormalClient.InsertNormalClients(name, lastname, mail, password, DiscountObj)
+    typeClient = request.form.get('typeClient')
+    if typeClient == "NormalClient":
+        idDiscount = 0
+        DiscountObj = Discount.SelectDiscountsID(idDiscount)
+        NormalClient = NormalClients("NULL", name, lastname, mail, password, "NULL", DiscountObj)
+        NormalClient.InsertNormalClients()
+    elif typeClient == "DisabledClient":
+        idDiscount = 1
+    elif typeClient == "VIPClient":
+        idDiscount = 2
     return redirect("/NormalClient")
 
 """
