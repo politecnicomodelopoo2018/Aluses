@@ -8,8 +8,7 @@ class PlaneModel(object):
 
     def InsertPlaneModel(self):
         Database = DB()
-        planeModelCursor = Database.run("INSERT INTO PlaneModel VALUES(NULL, %s, %s);", (str(self.code),
-                                                                                         str(self.seatQuantity)))
+        planeModelCursor = Database.run("INSERT INTO PlaneModel VALUES(NULL, %s);", str(self.seatQuantity))
         self.code = planeModelCursor.lastrowid
 
     def UpdatePlaneModel(self, quantity):
@@ -45,4 +44,4 @@ class PlaneModel(object):
 
     @staticmethod
     def GetPlaneModel(dic):
-        return dic["code"], dic["quantity"]
+        return dic["code"], dic["seatQuantity"]

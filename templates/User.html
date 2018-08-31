@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Normal client</title>
+    <title>User</title>
     <style>
         table {
             font-family: arial, sans-serif;
@@ -22,24 +22,20 @@
 <body>
     <table>
     <tr>
-        <th>ID Persona</th>
         <th>Nombre</th>
         <th>Apellido</th>
         <th>mail</th>
-        <th>descuento</th>
     </tr>
-    {% for item in listaNormalClients %}
+    {% for item in listaUser %}
         <tr>
-            <td>{{ item.idPersona }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.lastname }}</td>
             <td>{{ item.mail }}</td>
-            <td>{{ item.discount.percentDiscount }}</td>
-            <td><a href="/editarClient?idNormalClient={{item.idNormalClient}}">editar</a></td>
-            <td><a href="/deleteClient?idNormalClient={{item.idNormalClient}}">borrar</a></td>
+            <td><a href="/user/editarUser?idUser={{item.idUser}}">editar</a></td>
+            <td><a href="/user/deleteUser?idUser={{item.idUser}}">borrar</a></td>
         </tr>
     {% endfor %}
 </table>
-<br><a href="/insertarNormalClient">Agregar tripulante</a>
+<br><a href="/user/insertarUser">Agregar usuario</a>
 </body>
 </html>

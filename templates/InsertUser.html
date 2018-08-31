@@ -2,19 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Insert normal client</title>
+    <title>Insert user</title>
 </head>
 <body>
-    <form action="/insertClient" method="post">
+    <form action="/user/insertUser" method="post" role="form">
         <input type="text" name="name" placeholder="nombre" role="textbox">
         <input type="text" name="lastname" placeholder="apellido" role="textbox">
         <input type="email" name="mail" placeholder="mail" role="textbox">
         <input type="password" name="password" placeholder="password">
-        <select class="Client" name="typeClient" role="listbox">
-            <option value="NormalClient">Normal</option>
-            <option value="DisabledClient">Discapacitado</option>
-            <option value="VIPClient">VIP</option>
-        </select>
         <input type="submit" value="Sumbit" role="button">
     </form>
 </body>

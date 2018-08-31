@@ -2,7 +2,7 @@ from SQLConnection import DB
 
 
 class FlightPerson(object):
-    def __init__(self, Flight, Person, Seat):
+    def __init__(self, Flight, User, Seat):
         self.Flight = Flight
-        self.Person = Person
+        self.User = User
         self.Seat = Seat

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+</head>
+<body>
+    <form action="/user/editUser" method="post" role="form">
+        <input type="hidden" name="idUser" value="{{idUser}}" readonly>
+        <input type="text" name="name" placeholder="Nuevo nombre" role="textbox">
+        <input type="text" name="lastname" placeholder="Nuevo apellido" role="textbox">
+        <input type="email" name="mail" placeholder="ejemplo@dominio.com" role="textbox">
+        <input type="password" name="password" placeholder="********">
+        <input type="submit" value="Sumbit" role="button">
+    </form>
+</body>
+</html>

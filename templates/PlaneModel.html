@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plane model</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width:30%;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        a {
+            color: #2b6e6f;
+        }
+    </style>
+</head>
+<body>
+    <table role="table">
+    <tr role="row">
+        <th role="columnheader">code</th>
+        <th role="columnheader">cantidad asientos</th>
+    </tr>
+    {% for item in modelLista %}
+        <tr role="row">
+            <td role="cell">{{ item.code }}</td>
+            <td role="cell">{{ item.seatQuantity }}</td>
+            <td role="cell"><a href="/planeModel/editarModel?code={{item.code}}">editar</a></td>
+            <td role="cell"><a href="/planeModel/deleteModel?code={{item.code}}">borrar</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<br><a href="/planeModel/insertarModel">Agregar Planemodel</a>
+</body>
+</html>
