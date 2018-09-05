@@ -18,7 +18,7 @@ class FlightUser(object):
 
     def UpdateFlightUser(self, flightObj, userObj, seatObj):
         Database = DB()
-        Database.run("UPDATE Flight_has_User SET seatNumber = %s WHERE idFlight = %s AND idUser = %s,;",
+        Database.run("UPDATE Flight_has_User SET seatNumber = %s WHERE idFlight = %s AND idUser = %s;",
                      (str(self.Seat.seatNumber), str(self.FlightObj.idFlight), str(self.UserObj.idUser)))
         self.FlightObj = flightObj
         self.UserObj = userObj
