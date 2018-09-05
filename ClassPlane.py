@@ -10,7 +10,7 @@ class Plane(object):
 
     def InsertPlane(self):
         Database = DB()
-        planeCursor = Database.run("INSERT INTO Plane VALUES(NULL, %s, %s);", (str(self.Model),
+        planeCursor = Database.run("INSERT INTO Plane VALUES(NULL, %s, %s);", (str(self.Model.code),
                                                                                str(self.constructionDay)))
         self.idPlane = planeCursor.lastrowid
 
@@ -20,6 +20,11 @@ class Plane(object):
                      (str(Model.code), str(constructionDay), str(self.idPlane)))
         self.Model = Model
         self.constructionDay = constructionDay
+
+    @staticmethod
+    def DeletePlane(idPlane):
+        Database = DB()
+        Database.run("DELETE FROM Plane WHERE idPlane = %s;", str(idPlane))
 
     @staticmethod
     def SelectPlanes():

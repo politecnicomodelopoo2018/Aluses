@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit flight</title>
+</head>
+<body>
+    <form action="/flight/editFlight" method="post" role="form">
+        <input type="hidden" name="idFlight" value="{{idFlight}}" readonly>
+        <input type="text" name="destination" placeholder="destino" role="textbox">
+        <input type="text" name="arrival" placeholder="llegada" role="textbox">
+        <input type="text" name="idPlane" placeholder="avion" role="textbox">
+        <input type="submit" value="Sumbit" role="button">
+    </form>
+</body>
+</html>

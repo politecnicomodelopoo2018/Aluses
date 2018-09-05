@@ -24,6 +24,11 @@ class Flight(object):
         self.Plane = Plane
 
     @staticmethod
+    def DeleteFlight(idFlight):
+        Database = DB()
+        Database.run("DELETE FROM Flight WHERE idFlight = %s", str(idFlight))
+
+    @staticmethod
     def SelectFlights():
         Database = DB()
         flightsCursor = Database.run("SELECT * FROM Flight;")
@@ -34,6 +39,15 @@ class Flight(object):
             flight = Flight(tmpFlight[0], tmpFlight[1], tmpFlight[2], tmpFlight[3])
             flightList.append(flight)
         return flightList
+
+    @staticmethod
+    def SelectFlightsID(idFlight):
+        Database = DB()
+        flightsCursor = Database.run("SELECT * FROM Flight WHERE idFlight = %s;", str(idFlight))
+        flightsDict = flightsCursor.fetchone()
+        tmpFlight = Flight.GetFlight(flightsDict)
+        flight = Flight(tmpFlight[0], tmpFlight[1], tmpFlight[2], tmpFlight[3])
+        return flight
 
     @staticmethod
     def GetFlight(dic):

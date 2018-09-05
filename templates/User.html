@@ -20,19 +20,21 @@
     </style>
 </head>
 <body>
-    <table>
-    <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>mail</th>
+    <table role="table">
+    <tr role="row">
+        <th role="columnheader">id usuario</th>
+        <th role="columnheader">Nombre</th>
+        <th role="columnheader">Apellido</th>
+        <th role="columnheader">mail</th>
     </tr>
     {% for item in listaUser %}
-        <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ item.lastname }}</td>
-            <td>{{ item.mail }}</td>
-            <td><a href="/user/editarUser?idUser={{item.idUser}}">editar</a></td>
-            <td><a href="/user/deleteUser?idUser={{item.idUser}}">borrar</a></td>
+        <tr role="row">
+            <td role="cell">{{ item.idUser }}</td>
+            <td role="cell">{{ item.name }}</td>
+            <td role="cell">{{ item.lastname }}</td>
+            <td role="cell">{{ item.mail }}</td>
+            <td role="cell"><a href="/user/editarUser?idUser={{item.idUser}}">editar</a></td>
+            <td role="cell"><a href="/user/deleteUser?idUser={{item.idUser}}">borrar</a></td>
         </tr>
     {% endfor %}
 </table>

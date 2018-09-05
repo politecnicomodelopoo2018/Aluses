@@ -2,12 +2,18 @@ from SQLConnection import DB
 from flask import Flask, render_template, request, redirect
 from ClassUser import User
 from ClassPlaneModel import PlaneModel
+from ClassSeats import Seats
+from ClassPlane import Plane
+from ClassFlight import Flight
+from ClassFlightUser import FlightUser
 
 app = Flask(__name__)
 
 Database = DB()
 Database.SetConnection("localhost", "root", "alumno", "Aluses")
 
+
+# hardcodear admins y que puedan hacer mas admins
 
 @app.route('/home')
 def home():
@@ -100,6 +106,195 @@ def deleteModel():
     code = request.args.get('code')
     PlaneModel.DeletePlaneModel(code)
     return redirect('/planeModel')
+
+
+@app.route('/seats')
+def seat():
+    seatLista = Seats.SelectSeats()
+    return render_template('Seats.html', seatLista=seatLista)
+
+
+@app.route('/seats/insertarSeats')
+def insertarSeats():
+    return render_template('InsertSeats.html')
+
+
+@app.route('/seats/insertSeats', methods=['GET', 'POST'])
+def insertSeats():
+    modelCode = request.form.get('modelCode')
+    seatClass = request.form.get('seatClass')
+    model = PlaneModel.SelectPlaneModelsID(modelCode)
+    Seat = Seats("NULL", model, seatClass)
+    Seat.InsertSeats()
+    return redirect('/seats')
+
+
+@app.route('/seats/editarSeats', methods=['GET', 'POST'])
+def editarSeats():
+    seatNumber = request.args.get('seatNumber')
+    return render_template('EditSeats.html', seatNumber=seatNumber)
+
+
+@app.route('/seats/editSeats', methods=['GET', 'POST'])
+def editSeats():
+    seatNumber = request.form.get('seatNumber')
+    modelCode = request.form.get('modelCode')
+    seatClass = request.form.get('seatClass')
+    model = PlaneModel.SelectPlaneModelsID(modelCode)
+    Seat = Seats.SelectSeatsID(seatNumber)
+    Seat.UpdateSeats(model, seatClass)
+    return redirect('/seats')
+
+
+@app.route('/seats/deleteSeats', methods=['GET'])
+def deleteSeats():
+    seatNumber = request.args.get('seatNumber')
+    Seats.DeleteSeats(seatNumber)
+    return redirect('/seats')
+
+
+@app.route('/plane')
+def plane():
+    listaPlane = Plane.SelectPlanes()
+    return render_template('Plane.html', listaPlane=listaPlane)
+
+
+@app.route('/plane/insertarPlane')
+def insertarPlane():
+    return render_template('InsertPlane.html')
+
+
+@app.route('/plane/insertPlane', methods=['POST'])  # hacer una lista seleccionable con los id a todo
+def insertPlane():
+    modelCode = request.form.get('modelCode')
+    constructionDay = request.form.get('constructionDay')
+    Model = PlaneModel.SelectPlaneModelsID(modelCode)
+    plane = Plane("NULL", Model, constructionDay)
+    plane.InsertPlane()
+    return redirect('/plane')
+
+
+@app.route('/plane/editarPlane', methods=['GET'])
+def editarPlane():
+    idPlane = request.args.get('idPlane')
+    return render_template('EditPlane.html', idPlane=idPlane)
+
+
+@app.route('/plane/editPlane', methods=['POST'])
+def editPlane():
+    idPlane = request.form.get('idPlane')
+    modelCode = request.form.get('modelCode')
+    constructionDay = request.form.get('constructionDay')
+    Model = PlaneModel.SelectPlaneModelsID(modelCode)
+    plane = Plane.SelectPlaneID(idPlane)
+    plane.UpdatePlane(Model, constructionDay)
+    return redirect('/plane')
+
+
+@app.route('/plane/deletePlane', methods=['GET'])
+def deltePlane():
+    idPlane = request.args.get('idPlane')
+    Plane.DeletePlane(idPlane)
+    return redirect('/plane')
+
+
+@app.route('/flight')
+def flight():
+    listaFlight = Flight.SelectFlights()
+    return render_template('Flight.html', listaFlight=listaFlight)
+
+
+@app.route('/flight/insertarFlight')
+def insertarFlight():
+    return render_template('InsertFlight.html')
+
+
+@app.route('/flight/insertFlight', methods=['POST'])
+def insertFlight():
+    destination = request.form.get('destination')
+    arrival = request.form.get('arrival')
+    idPlane = request.form.get('idPlane')
+    plane = Plane.SelectPlaneID(idPlane)
+    flight = Flight("NULL", destination, arrival, plane)
+    flight.InsertFlight()
+    return redirect('/flight')
+
+
+@app.route('/flight/editarFlight', methods=['GET'])
+def editarFlight():
+    idFlight = request.args.get('idFlight')
+    return render_template('EditFlight.html', idFlight=idFlight)
+
+
+@app.route('/flight/editFlight', methods=['POST'])
+def editFlight():
+    idFlight = request.form.get('idFlight')
+    destination = request.form.get('destination')
+    arrival = request.form.get('arrival')
+    idPlane = request.form.get('idPlane')
+    plane = Plane.SelectPlaneID(idPlane)
+    flight = Flight.SelectFlightsID(idFlight)
+    flight.UpdateFlight(destination, arrival, plane)
+    return redirect('/flight')
+
+
+@app.route('/flight/deleteFlight', methods=['GET'])
+def deleteFlight():
+    idFlight = request.args.get('idFlight')
+    Flight.DeleteFlight(idFlight)
+    return redirect('/flight')
+
+
+@app.route('/flightUser')
+def flighUser():
+    listaFlightUser = FlightUser.SelectFlightUser()
+    return render_template('FlightUser.html', listaFlightUser=listaFlightUser)
+
+
+@app.route('/flightUser/insertarFlightUser')
+def insertarFlightUser():
+    return render_template('InsertFlightUser.html')
+
+
+@app.route('/flightUser/insertFlightUser', methods=['POST'])
+def insertFlightUser():
+    idFlight = request.form.get('idFlight')
+    idUser = request.form.get('idUser')
+    seatNumber = request.form.get('seatNumber')
+    flight = Flight.SelectFlightsID(idFlight)
+    user = User.SelectUserID(idUser)
+    seat = Seats.SelectSeatsID(seatNumber)
+    flightUser = FlightUser(flight, user, seat)
+    flightUser.InsertFlightUser()
+    return redirect('/flightUser')
+
+
+@app.route('/flightUser/editarFlightUser', methods=['GET'])
+def editarFlightUser():
+    idFlight = request.args.get('idFlight')
+    idUser = request.args.get('idUser')
+    return render_template('EditFlightUser.html', idFlight=idFlight, idUser=idUser)
+
+
+@app.route('/flightUser/editFlightUser', methods=['POST'])
+def editFlightUser():
+    idFlight = request.form.get('idFlight')
+    idUser = request.form.get('idUser')
+    seatNumber = request.form.get('seatNumber')
+    flight = Flight.SelectFlightsID(idFlight)
+    user = User.SelectUserID(idUser)
+    seat = Seats.SelectSeatsID(seatNumber)
+    flightUser = FlightUser.SelectFlightUserID(idFlight, idUser)
+    flightUser.UpdateFlightUser(flight, user, seat)
+    return redirect('/flightUser')
+
+
+@app.route('/flightUser/deleteFlightUser', methods=['GET'])
+def deleteFlightUser():
+    idFlight = request.form.get('idFlight')
+    idUser = request.form.get('idUser')
+    FlightUser.DeleteFlightUser(idFlight, idUser)
+    return redirect('/flightUser')
 
 
 if __name__ == '__main__':

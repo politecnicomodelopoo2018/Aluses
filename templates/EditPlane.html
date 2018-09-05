@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit plane</title>
+</head>
+<body>
+    <form action="/plane/editPlane" method="post" role="form">
+        <input type="hidden" name="idPlane" value="{{idPlane}}" readonly>
+        <input type="text" name="modelCode" placeholder="Nuevo modelo" role="textbox">
+        <input type="date" name="constructionDay" role="textbox">
+        <input type="submit" value="Sumbit" role="button">
+    </form>
+</body>
+</html>

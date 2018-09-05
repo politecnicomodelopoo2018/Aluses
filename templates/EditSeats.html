@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit seats</title>
+</head>
+<body>
+    <form action="/seats/editSeats" method="post" role="form">
+        <input type="hidden" name="seatNumber" value="{{seatNumber}}" readonly>
+        <input type="text" name="modelCode" placeholder="Nuevo modelo" role="textbox">
+        <input type="text" name="seatClass" placeholder="Nueva clase" role="textbox">
+        <input type="submit" value="Sumbit" role="button">
+    </form>
+</body>
+</html>

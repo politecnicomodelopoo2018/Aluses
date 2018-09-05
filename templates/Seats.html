@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Seats</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width:30%;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        a {
+            color: #2b6e6f;
+        }
+    </style>
+</head>
+<body>
+    <table role="table">
+    <tr role="row">
+        <th role="columnheader">numero asiento</th>
+        <th role="columnheader">modelo</th>
+        <th role="columnheader">clase asiento</th>
+    </tr>
+    {% for item in seatLista %}
+        <tr role="row">
+            <td role="cell">{{ item.seatNumber}}</td>
+            <td role="cell">{{ item.Model.code }}</td>
+            <td role="cell">{{ item.seatClass }}</td>
+            <td role="cell"><a href="/seats/editarSeats?seatNumber={{item.seatNumber}}">editar</a></td>
+            <td role="cell"><a href="/seats/deleteSeats?seatNumber={{item.seatNumber}}">borrar</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<br><a href="/seats/insertarSeats">Agregar asiento</a>
+</body>
+</html>

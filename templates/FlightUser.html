@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight user</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width:30%;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        a {
+            color: #2b6e6f;
+        }
+    </style>
+</head>
+<body>
+    <table role="table">
+    <tr role="row">
+        <th role="columnheader">vuelo</th>
+        <th role="columnheader">usuario</th>
+        <th role="columnheader">numero asiento</th>
+    </tr>
+    {% for item in listaFlightUser %}
+        <tr role="row">
+            <td role="cell">{{ item.FlightObj.idFlight}}</td>
+            <td role="cell">{{ item.UserObj.idUser }}</td>
+            <td role="cell">{{ item.Seat.seatNumber }}</td>
+            <td role="cell"><a href="/flightUser/editarFlightUser?idFlight={{item.FlightObj.idFlight}}, idUser={{item.UserObj.idUser}}">editar</a></td>
+            <td role="cell"><a href="/flightUser/deleteFlightUser?idFlight={{item.FlightObj.idFlight}}, idUser={{item.UserObj.idUser}}">borrar</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<br><a href="/flightUser/insertarFlightUser">Agregar pasajero</a>
+</body>
+</html>

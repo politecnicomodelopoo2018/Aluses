@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plane</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width:30%;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        a {
+            color: #2b6e6f;
+        }
+    </style>
+</head>
+<body>
+    <table role="table">
+    <tr role="row">
+        <th role="columnheader">id plane</th>
+        <th role="columnheader">modelo</th>
+        <th role="columnheader">dia de construccion</th>
+    </tr>
+    {% for item in listaPlane %}
+        <tr role="row">
+            <td role="cell">{{ item.idPlane }}</td>
+            <td role="cell">{{ item.Model.code }}</td>
+            <td role="cell">{{ item.constructionDay }}</td>
+            <td role="cell"><a href="/plane/editarPlane?idPlane={{item.idPlane}}">editar</a></td>
+            <td role="cell"><a href="/plane/deletePlane?idPlane={{item.idPlane}}">borrar</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<br><a href="/plane/insertarPlane">Agregar avion</a>
+</body>
+</html>

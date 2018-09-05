@@ -24,7 +24,7 @@ class Seats(object):
     @staticmethod
     def DeleteSeats(seatNumber):
         Database = DB()
-        Database.run("DELETE * FROM Seats where seatNumber = %s;", seatNumber)
+        Database.run("DELETE FROM Seats where seatNumber = %s;", seatNumber)
 
     @staticmethod
     def SelectSeats():
@@ -39,6 +39,15 @@ class Seats(object):
         return seatsList
 
     @staticmethod
+    def SelectSeatsID(seatNumber):
+        Database = DB()
+        seatsCursor = Database.run("SELECT * FROM Seats WHERE seatNumber = %s;", str(seatNumber))
+        seatsDict = seatsCursor.fetchone()
+        tmpSeat = Seats.GetSeat(seatsDict)
+        Seat = Seats(tmpSeat[0], tmpSeat[1], tmpSeat[2])
+        return Seat
+
+    @staticmethod
     def GetSeat(dic):
         Model = PlaneModel.SelectPlaneModelsID(dic["modelCode"])
-        return dic["eatNumber"], Model, dic["seatClass"]
+        return dic["seatNumber"], Model, dic["seatClass"]
