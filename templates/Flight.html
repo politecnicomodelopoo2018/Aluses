@@ -23,14 +23,14 @@
     <table role="table">
     <tr role="row">
         <th role="columnheader">id flight</th>
-        <th role="columnheader">destino</th>
+        <th role="columnheader">salida</th>
         <th role="columnheader">llegada</th>
         <th role="columnheader">avion</th>
     </tr>
     {% for item in listaFlight %}
         <tr role="row">
             <td role="cell">{{ item.idFlight }}</td>
-            <td role="cell">{{ item.destination }}</td>
+            <td role="cell">{{ item.departure }}</td>
             <td role="cell">{{ item.arrival }}</td>
             <td role="cell">{{ item.Plane.idPlane }}</td>
             <td role="cell"><a href="/flight/editarFlight?idFlight={{item.idFlight}}">editar</a></td>

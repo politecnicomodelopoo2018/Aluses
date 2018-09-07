@@ -6,8 +6,10 @@
 </head>
 <body>
     <form action="/flightUser/editFlightUser" method="post" role="form">
-        <input type="text" name="idFlight" placeholder="nuevo vuelo" role="textbox">
-        <input type="text" name="idUser" placeholder="nuevo usuario" role="textbox">
+        <input type="text" name="oldIDFlight" value="{{ idFlight }}" role="textbox" hidden>
+        <input type="text" name="oldIDUser" value="{{ idUser }}" role="textbox" hidden>
+        <input type="text" name="idFlight" placeholder="{{ idFlight }}" role="textbox">
+        <input type="text" name="idUser" placeholder="{{ idUser }}" role="textbox">
         <input type="text" name="seatNumber" placeholder="nuevo asiento" role="textbox">
         <input type="submit" value="Sumbit" role="button">
     </form>

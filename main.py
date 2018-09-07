@@ -12,12 +12,58 @@ app = Flask(__name__)
 Database = DB()
 Database.SetConnection("localhost", "root", "alumno", "Aluses")
 
+Admin = User(1, 'Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1)
 
-# hardcodear admins y que puedan hacer mas admins
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+@app.route('/signIn')
+def signIn():
+    return render_template('SignIn.html')
+
+
+@app.route('/signIn/confirm', methods=['POST'])
+def confirmSignIn():
+    mail = request.form.get('mail')
+    password = request.form.get('password')
+    user = User.SelectUserMailPassword(mail, password)
+    if user is None:
+        return redirect('/signIn')
+    if user.administrador == 1:
+        return redirect('/admin')
+    return redirect('/home')
+
+
+@app.route('/signUp')
+def signUp():
+    return render_template('SignUp.html')
+
+
+@app.route('/signUp/confirm', methods=['POST'])
+def confirmSignUp():
+    name = request.form.get('name')
+    lastname = request.form.get('lastname')
+    mail = request.form.get('mail')
+    password = request.form.get('password')
+    confirmPassword = request.form.get('confirmPassword')
+    if confirmPassword != password:
+        return render_template('SignUp.html')
+    user = User("NULL", name, lastname, mail, password)
+    user.InsertUser(name, lastname, mail, password)
+    return redirect('/home')
+
 
 @app.route('/home')
 def home():
-    return render_template('Home.html')
+    return render_template('UserHome.html')
+
+
+@app.route('/admin')
+def admin():
+    return render_template('AdminHome.html')
 
 
 @app.route('/user')
@@ -211,11 +257,11 @@ def insertarFlight():
 
 @app.route('/flight/insertFlight', methods=['POST'])
 def insertFlight():
-    destination = request.form.get('destination')
+    departure = request.form.get('departure')
     arrival = request.form.get('arrival')
     idPlane = request.form.get('idPlane')
     plane = Plane.SelectPlaneID(idPlane)
-    flight = Flight("NULL", destination, arrival, plane)
+    flight = Flight("NULL", departure, arrival, plane)
     flight.InsertFlight()
     return redirect('/flight')
 
@@ -229,12 +275,12 @@ def editarFlight():
 @app.route('/flight/editFlight', methods=['POST'])
 def editFlight():
     idFlight = request.form.get('idFlight')
-    destination = request.form.get('destination')
+    departure = request.form.get('departure')
     arrival = request.form.get('arrival')
     idPlane = request.form.get('idPlane')
     plane = Plane.SelectPlaneID(idPlane)
     flight = Flight.SelectFlightsID(idFlight)
-    flight.UpdateFlight(destination, arrival, plane)
+    flight.UpdateFlight(departure, arrival, plane)
     return redirect('/flight')
 
 
@@ -246,7 +292,7 @@ def deleteFlight():
 
 
 @app.route('/flightUser')
-def flighUser():
+def flightUser():
     listaFlightUser = FlightUser.SelectFlightUser()
     return render_template('FlightUser.html', listaFlightUser=listaFlightUser)
 
@@ -278,21 +324,23 @@ def editarFlightUser():
 
 @app.route('/flightUser/editFlightUser', methods=['POST'])
 def editFlightUser():
+    oldIDFlight = request.form.get('oldIDFlight')
+    oldIDUser = request.form.get('oldIDUser')
     idFlight = request.form.get('idFlight')
     idUser = request.form.get('idUser')
     seatNumber = request.form.get('seatNumber')
     flight = Flight.SelectFlightsID(idFlight)
     user = User.SelectUserID(idUser)
     seat = Seats.SelectSeatsID(seatNumber)
-    flightUser = FlightUser.SelectFlightUserID(idFlight, idUser)
+    flightUser = FlightUser.SelectFlightUserID(oldIDFlight, oldIDUser)
     flightUser.UpdateFlightUser(flight, user, seat)
     return redirect('/flightUser')
 
 
 @app.route('/flightUser/deleteFlightUser', methods=['GET'])
 def deleteFlightUser():
-    idFlight = request.form.get('idFlight')
-    idUser = request.form.get('idUser')
+    idFlight = request.args.get('idFlight')
+    idUser = request.args.get('idUser')
     FlightUser.DeleteFlightUser(idFlight, idUser)
     return redirect('/flightUser')
 

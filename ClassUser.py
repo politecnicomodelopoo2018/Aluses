@@ -55,5 +55,16 @@ class User(object):
         return userLista
 
     @staticmethod
+    def SelectUserMailPassword(mail, password):
+        Database = DB()
+        userCursor = Database.run("SELECT * FROM User WHERE mail = %s AND password = %s;", (str(mail), str(password)))
+        userDict = userCursor.fetchone()
+        if userDict is None:
+            return None
+        tmpUser = User.GetUser(userDict)
+        user = User(tmpUser[0], tmpUser[1], tmpUser[2], tmpUser[3], tmpUser[4], tmpUser[5])
+        return user
+
+    @staticmethod
     def GetUser(dic):
         return dic["idUser"], dic["name"], dic["lastname"], dic["mail"], dic["password"], dic["administrador"]

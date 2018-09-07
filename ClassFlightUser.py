@@ -18,8 +18,9 @@ class FlightUser(object):
 
     def UpdateFlightUser(self, flightObj, userObj, seatObj):
         Database = DB()
-        Database.run("UPDATE Flight_has_User SET seatNumber = %s WHERE idFlight = %s AND idUser = %s;",
-                     (str(self.Seat.seatNumber), str(self.FlightObj.idFlight), str(self.UserObj.idUser)))
+        Database.run("UPDATE Flight_has_User SET seatNumber = %s, idFlight= %s, idUser= %s WHERE idFlight = %s"
+                     "AND idUser = %s;", (str(seatObj.seatNumber), str(flightObj.idFlight), str(userObj.idUser),
+                                          str(self.FlightObj.idFlight), str(self.UserObj.idUser)))
         self.FlightObj = flightObj
         self.UserObj = userObj
         self.Seat = seatObj
@@ -54,6 +55,6 @@ class FlightUser(object):
     @staticmethod
     def GetFlightUser(dic):
         flight = Flight.SelectFlightsID(dic["idFlight"])
-        user = User.SelectUserID(dic["idFlight"])
+        user = User.SelectUserID(dic["idUser"])
         seat = Seats.SelectSeatsID(dic["seatNumber"])
         return flight, user, seat

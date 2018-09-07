@@ -3,23 +3,23 @@ from ClassPlane import Plane as ClassPlane
 
 
 class Flight(object):
-    def __init__(self, idFlight, destination, arrival, Plane):
+    def __init__(self, idFlight, departure, arrival, Plane):
         self.idFlight = idFlight
-        self.destination = destination
+        self.departure = departure
         self.arrival = arrival
         self.Plane = Plane
 
     def InsertFlight(self):
         Database = DB()
-        flightCursor = Database.run("INSERT INTO Flight VALUES(NULL, %s, %s, %s);", (self.destination, self.arrival,
+        flightCursor = Database.run("INSERT INTO Flight VALUES(NULL, %s, %s, %s);", (self.departure, self.arrival,
                                                                                      str(self.Plane.idPlane)))
         self.idFlight = flightCursor.lastrowid
 
-    def UpdateFlight(self, destination, arrival, Plane):
+    def UpdateFlight(self, departure, arrival, Plane):
         Database = DB()
-        Database.run("UPDATE Flight SET destination = %s, arrival = %s, idPlane = %s WHERE idFlight = %s;",
-                     (destination, arrival, str(Plane.idPlane), str(self.idFlight)))
-        self.destination = destination
+        Database.run("UPDATE Flight SET departure = %s, arrival = %s, idPlane = %s WHERE idFlight = %s;",
+                     (departure, arrival, str(Plane.idPlane), str(self.idFlight)))
+        self.departure = departure
         self.arrival = arrival
         self.Plane = Plane
 
@@ -56,4 +56,4 @@ class Flight(object):
         planeDict = planeCursor.fetchone()
         tmpPlane = ClassPlane.GetPlane(planeDict)
         Plane = ClassPlane(tmpPlane[0], tmpPlane[1], tmpPlane[2])
-        return dic["idFlight"], dic["destination"], dic["arrival"], Plane
+        return dic["idFlight"], dic["departure"], dic["arrival"], Plane

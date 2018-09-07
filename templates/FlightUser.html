@@ -31,8 +31,8 @@
             <td role="cell">{{ item.FlightObj.idFlight}}</td>
             <td role="cell">{{ item.UserObj.idUser }}</td>
             <td role="cell">{{ item.Seat.seatNumber }}</td>
-            <td role="cell"><a href="/flightUser/editarFlightUser?idFlight={{item.FlightObj.idFlight}}, idUser={{item.UserObj.idUser}}">editar</a></td>
-            <td role="cell"><a href="/flightUser/deleteFlightUser?idFlight={{item.FlightObj.idFlight}}, idUser={{item.UserObj.idUser}}">borrar</a></td>
+            <td role="cell"><a href="/flightUser/editarFlightUser?idFlight={{item.FlightObj.idFlight}}&idUser={{item.UserObj.idUser}}">editar</a></td>
+            <td role="cell"><a href="/flightUser/deleteFlightUser?idFlight={{item.FlightObj.idFlight}}&idUser={{item.UserObj.idUser}}">borrar</a></td>
         </tr>
     {% endfor %}
 </table>
