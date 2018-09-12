@@ -62,7 +62,7 @@ DROP TABLE IF EXISTS `Aluses`.`Flight` ;
 
 CREATE TABLE IF NOT EXISTS `Aluses`.`Flight` (
   `idFlight` INT(11) NOT NULL AUTO_INCREMENT,
-  `destination` VARCHAR(45) NOT NULL,
+  `departure` VARCHAR(45) NOT NULL,
   `arrival` VARCHAR(45) NOT NULL,
   `idPlane` INT(11) NOT NULL,
   PRIMARY KEY (`idFlight`),

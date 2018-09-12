@@ -1,3 +1,20 @@
 .heading {
-  color: #888888;
+  color: black;
+  display: inline;
+  text-align: center;
+}
+.heading h1 {
+  margin-bottom: -20px;
+}
+.login .navigation {
+  text-align: right;
+}
+/*
+.navigation button {
+  border-color: black;
+  background: grey;
+}
+*/
+.selection select {
+  display: inline-block;
 }

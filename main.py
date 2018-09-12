@@ -15,9 +15,28 @@ Database.SetConnection("localhost", "root", "alumno", "Aluses")
 Admin = User(1, 'Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1)
 
 
-@app.route('/login')
-def login():
-    return render_template('Login.html')
+@app.route('/home')
+def home():
+    listaVuelos = Flight.SelectFlights()
+    listaSalidas = []
+    listaSalidasDepar = []
+    listaLLegada = []
+    listaLLegadaArriv = []
+    for item in listaVuelos:
+        if item.departure not in listaSalidasDepar:
+            listaSalidas.append(item)
+            listaSalidasDepar.append(item.departure)
+    for item in listaVuelos:
+        if item.arrival not in listaLLegadaArriv:
+            listaLLegada.append(item)
+            listaLLegadaArriv.append(item.arrival)
+    return render_template('UserHome.html', listaVuelos=listaVuelos, listaSalidas=listaSalidas,
+                           listaLLegada=listaLLegada)
+
+
+@app.route('/admin')
+def admin():
+    return render_template('AdminHome.html')
 
 
 @app.route('/signIn')
@@ -54,16 +73,6 @@ def confirmSignUp():
     user = User("NULL", name, lastname, mail, password)
     user.InsertUser(name, lastname, mail, password)
     return redirect('/home')
-
-
-@app.route('/home')
-def home():
-    return render_template('UserHome.html')
-
-
-@app.route('/admin')
-def admin():
-    return render_template('AdminHome.html')
 
 
 @app.route('/user')
