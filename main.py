@@ -17,7 +17,7 @@ Admin = User(1, 'Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('Login.html')
 
 
 @app.route('/signIn')
