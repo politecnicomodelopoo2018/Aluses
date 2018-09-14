@@ -1,6 +1,6 @@
 .heading {
   color: black;
-  display: inline;
+  display: block;
   text-align: center;
 }
 .heading h1 {
@@ -15,6 +15,10 @@
   background: grey;
 }
 */
-.selection select {
-  display: inline-block;
+.selection p {
+  text-align: center;
+}
+fieldset .selection{
+  width: 600px;
+  text-align: center;
 }

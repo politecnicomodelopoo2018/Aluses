@@ -1,5 +1,5 @@
 from SQLConnection import DB
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from ClassUser import User
 from ClassPlaneModel import PlaneModel
 from ClassSeats import Seats
@@ -8,6 +8,7 @@ from ClassFlight import Flight
 from ClassFlightUser import FlightUser
 
 app = Flask(__name__)
+app.secret_key = 'AlusesKey'
 
 Database = DB()
 Database.SetConnection("localhost", "root", "alumno", "Aluses")
@@ -15,13 +16,25 @@ Database.SetConnection("localhost", "root", "alumno", "Aluses")
 Admin = User(1, 'Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1)
 
 
-@app.route('/home')
+def Session():
+    if not 'idUser' in session:
+        session['idUser'] = session.get('idUser')
+        session['name'] = session.get('name')
+        session['lastname'] = session.get('lastname')
+        session['mail'] = session.get('mail')
+        session['password'] = session.get('password')
+        session['administrador'] = session.get('administrador')
+
+
+@app.route('/home', methods=['GET'])
 def home():
     listaVuelos = Flight.SelectFlights()
     listaSalidas = []
     listaSalidasDepar = []
     listaLLegada = []
     listaLLegadaArriv = []
+    listaDepartureDatetime = []
+    listaArrivalDatetime = []
     for item in listaVuelos:
         if item.departure not in listaSalidasDepar:
             listaSalidas.append(item)
@@ -51,6 +64,14 @@ def confirmSignIn():
     user = User.SelectUserMailPassword(mail, password)
     if user is None:
         return redirect('/signIn')
+    Session()
+    if not user.idUser in session:
+        session['idUser'] = user.idUser
+        session['name'] = user.name
+        session['lastname'] = user.lastname
+        session['mail'] = user.mail
+        session['password'] = user.password
+        session['administrador'] = user.administrador
     if user.administrador == 1:
         return redirect('/admin')
     return redirect('/home')
@@ -72,6 +93,13 @@ def confirmSignUp():
         return render_template('SignUp.html')
     user = User("NULL", name, lastname, mail, password)
     user.InsertUser(name, lastname, mail, password)
+    if not user.idUser in session:
+        session['idUser'] = user.idUser
+        session['name'] = user.name
+        session['lastname'] = user.lastname
+        session['mail'] = user.mail
+        session['password'] = user.password
+        session['administrador'] = user.administrador
     return redirect('/home')
 
 
@@ -269,8 +297,10 @@ def insertFlight():
     departure = request.form.get('departure')
     arrival = request.form.get('arrival')
     idPlane = request.form.get('idPlane')
+    flightDepartureDatetime = request.form.get('flightDepartureDatetime')
+    flightArrivalDatetime = request.form.get('flightArrivalDatetime')
     plane = Plane.SelectPlaneID(idPlane)
-    flight = Flight("NULL", departure, arrival, plane)
+    flight = Flight("NULL", departure, arrival, plane, flightDepartureDatetime, flightArrivalDatetime)
     flight.InsertFlight()
     return redirect('/flight')
 
@@ -287,9 +317,11 @@ def editFlight():
     departure = request.form.get('departure')
     arrival = request.form.get('arrival')
     idPlane = request.form.get('idPlane')
+    flightDepartureDatetime = request.form.get('flightDepartureDatetime')
+    flightArrivalDatetime = request.form.get('flightArrivalDatetime')
     plane = Plane.SelectPlaneID(idPlane)
     flight = Flight.SelectFlightsID(idFlight)
-    flight.UpdateFlight(departure, arrival, plane)
+    flight.UpdateFlight(departure, arrival, plane, flightDepartureDatetime, flightArrivalDatetime)
     return redirect('/flight')
 
 

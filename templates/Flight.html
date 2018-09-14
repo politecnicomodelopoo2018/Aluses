@@ -7,7 +7,7 @@
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
-            width:30%;
+            width:50%;
         }
         td, th {
             border: 1px solid #dddddd;
@@ -26,6 +26,8 @@
         <th role="columnheader">salida</th>
         <th role="columnheader">llegada</th>
         <th role="columnheader">avion</th>
+        <th role="columnheader">fecha salida</th>
+        <th role="columnheader">fecha llegada</th>
     </tr>
     {% for item in listaFlight %}
         <tr role="row">
@@ -33,6 +35,8 @@
             <td role="cell">{{ item.departure }}</td>
             <td role="cell">{{ item.arrival }}</td>
             <td role="cell">{{ item.Plane.idPlane }}</td>
+            <td role="cell">{{ item.flightDepartureDatetime }}</td>
+            <td role="cell">{{ item.flightArrivalDatetime }}</td>
             <td role="cell"><a href="/flight/editarFlight?idFlight={{item.idFlight}}">editar</a></td>
             <td role="cell"><a href="/flight/deleteFlight?idFlight={{item.idFlight}}">borrar</a></td>
         </tr>

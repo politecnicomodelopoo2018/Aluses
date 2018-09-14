@@ -28,7 +28,8 @@
               <option value="{{item.departure}}">{{item.departure}}</option>
             {% endfor %}
           </select>
-        </p> <!-- meter a los 2 en la misma line, fijarse como sacar el salto -->
+          </p>
+      <!-- meter a los 2 en la misma line, fijarse como sacar el salto -->
           <p>Ciudad llegada:
           <select class="arrival" name="arrival">
             {% for item in listaLLegada %}
@@ -36,6 +37,16 @@
             {% endfor %}
           </select>
           </p>
+          <p>fecha salida:</p>
+          <select id="fechaSalida">
+            {% for item in listaVuelos %}
+            
+            {% endfor %}
+          </select>
+          <p>fecha llegada:</p>
+          <select id="fechaLLegada">
+
+          </select>
         </fieldset>
       </div>
     </main>
