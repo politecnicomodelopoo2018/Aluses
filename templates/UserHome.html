@@ -5,12 +5,13 @@
     <title>home</title>
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="/static/css/HomeCss.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body>
-    <header>
+    <header class="clearfix">
       <div class="heading">
         <h1 role="heading">Aluses Airlines</h1>
-        <h4 role="heading">Viva una experiencia unica de vuelo</h4>
+        <br><h4 role="heading">Viva una experiencia unica de vuelo</h4>
         <aside class="login" role="complementary">
             <nav role="navigation" class="navigation">
               <a href="/signIn"><button class="button" type="button" name="signIn" role="button">sign in</button></a>
@@ -20,36 +21,54 @@
       </div>
     </header>
     <main>
-      <div class="travel">
-        <fieldset class="selection">
-          <p>ciudad salida:
-          <select class="departure" name="departure">
-            {% for item in listaSalidas %}
-              <option value="{{item.departure}}">{{item.departure}}</option>
-            {% endfor %}
-          </select>
+      <div class="conteiner">
+        </div>
+        <div class="travel">
+          <fieldset class="selection">
+            <legend> Organize su viaje</legend>
+            <p>ciudad salida:
+            <select name="departure">
+              {% for item in listaSalidas %}
+                <option onchange="displayArrival()" value="{{item.departure}}">{{item.departure}}</option>
+              {% endfor %}
+            </select>
+            <p id="x">123</p>
+            <!-- pasar a un documento js -->
+            <script type="text/javascript">
+              function displayArrival(){
+                var x = document.getElementByName('departure').innerHTML;
+                document.getElementById('x') = "";
+              }
+            </script>
+            </p>
+        <!-- meter a los 2 en la misma line, fijarse como sacar el salto -->
+            <p>Ciudad llegada:
+            <select class="arrival" name="arrival">
+              <!-- {% for item in listaLLegada %} -->
+                <!-- <option value="{{item.arrival}}">{{item.arrival}}</option> -->
+              <!-- {% endfor %} -->
+            </select>
           </p>
-      <!-- meter a los 2 en la misma line, fijarse como sacar el salto -->
-          <p>Ciudad llegada:
-          <select class="arrival" name="arrival">
-            {% for item in listaLLegada %}
-              <option value="{{item.arrival}}">{{item.arrival}}</option>
-            {% endfor %}
-          </select>
-          </p>
-          <p>fecha salida:</p>
-          <select id="fechaSalida">
-            {% for item in listaVuelos %}
-            
-            {% endfor %}
-          </select>
-          <p>fecha llegada:</p>
-          <select id="fechaLLegada">
+            <br><p>fecha salida:</p>
+            <select name="fechaSalida">
 
-          </select>
-        </fieldset>
-      </div>
+            </select>
+            <p>fecha llegada:</p>
+            <select name="fechaLLegada">
+
+            </select>
+          </fieldset>
+        </div>
+        <div class="news">
+          <article class="promotions">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </article>
+        </div>
+      </div> <!-- contenedor -->
     </main>
-    <footer></footer>
+    <footer>
+      <p class="Copyright">2018 Copyright Holder All Rights Reserved. &copy </p>
+      <span><a class="logoFacebook" href="https://es-la.facebook.com/"><img class="logoFacebook" src="../static/logoFacebook.png"></img></a></span>
+    </footer>
 </body>
 </html>
