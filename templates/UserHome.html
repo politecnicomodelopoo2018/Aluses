@@ -5,70 +5,69 @@
     <title>home</title>
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="/static/css/HomeCss.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body>
-    <header class="clearfix">
+    <header>
       <div class="heading">
         <h1 role="heading">Aluses Airlines</h1>
         <br><h4 role="heading">Viva una experiencia unica de vuelo</h4>
         <aside class="login" role="complementary">
+            <button type="button" class="configuration">
+            <img src="../static/img/configuration.png" alt="logo configuracion" width="20px" height="20px"> <!-- cambiarlo a archivo css-->
+            </button>
             <nav role="navigation" class="navigation">
-              <a href="/signIn"><button class="button" type="button" name="signIn" role="button">sign in</button></a>
-              <a href="/signUp"><button class="button" type="button" name="signUp" role="button">sign up</button></a>
+              <a href="/signIn"><button class="button" type="button" name="signIn" role="button">Iniciar sesión</button></a>
+              <a href="/signUp"><button class="button" type="button" name="signUp" role="button">Registrarse</button></a>
             </nav>
         </aside>
       </div>
     </header>
     <main>
       <div class="conteiner">
-        </div>
         <div class="travel">
-          <fieldset class="selection">
-            <legend> Organize su viaje</legend>
-            <p>ciudad salida:
-            <select name="departure">
-              {% for item in listaSalidas %}
-                <option onchange="displayArrival()" value="{{item.departure}}">{{item.departure}}</option>
-              {% endfor %}
-            </select>
-            <p id="x">123</p>
-            <!-- pasar a un documento js -->
-            <script type="text/javascript">
-              function displayArrival(){
-                var x = document.getElementByName('departure').innerHTML;
-                document.getElementById('x') = "";
-              }
-            </script>
-            </p>
-        <!-- meter a los 2 en la misma line, fijarse como sacar el salto -->
-            <p>Ciudad llegada:
-            <select class="arrival" name="arrival">
-              <!-- {% for item in listaLLegada %} -->
-                <!-- <option value="{{item.arrival}}">{{item.arrival}}</option> -->
-              <!-- {% endfor %} -->
-            </select>
-          </p>
-            <br><p>fecha salida:</p>
-            <select name="fechaSalida">
-
-            </select>
-            <p>fecha llegada:</p>
-            <select name="fechaLLegada">
-
-            </select>
-          </fieldset>
+          <p>Organize su viaje</p>
+          <input type="text" name="salida" placeholder="ciudad salida">
+          <input type="text" name="salida" placeholder="ciudad destino">
+          <input type="datetime-local" name="salida" placeholder="fecha ida">
+          <input type="datetime-local" name="salida" placeholder="fecha vuelta">
+          <button type="button" class="button buscar">Buscar</button>
         </div>
+      </div> <!-- conteiner -->
         <div class="news">
           <article class="promotions">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <p> Viaje a Londres: </p>
+            <img src="../static/img/londres.jpg" alt="Londres image">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <button type="button" name="button">Compra tu pasaje</button>
+
+            <p> Viaje a Paris: </p>
+            <img src="../static/img/paris.jpeg" alt="Paris image">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <button type="button" name="button">Compra tu pasaje</button>
+
+            <p> Viaje a Rumania: </p>
+            <img src="../static/img/rumania.jpeg" alt="Rumania image">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <button type="button" name="button">Compra tu pasaje</button>
+
+            <p> Viaje a Holanda: </p>
+            <img src="../static/img/Holanda.png" alt="Holanda image">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <button type="button" name="button">Compra tu pasaje</button>
+
           </article>
         </div>
       </div> <!-- contenedor -->
+
     </main>
     <footer>
+      <h2>Nuestras redes</h2>
+      <span><a href="https://es-la.facebook.com/"><img class="logoFacebook" src="../static/img/facebook.png" alt="logoFacebook"></img></a></span>
+      <span><a href="https://www.instagram.com/?hl=es-la"><img class="logoInstagram" src="../static/img/Instagram.png" alt="logoInstagram"></img></a></span>
+      <span><a href="https://ar.linkedin.com/"><img class="logoLinkedin" src="../static/img/linkedin.png" alt="logoLinkedin"></img></a></span>
+      <span><a href="https://twitter.com/?lang=es"><img class="logoTwitter" src="../static/img/Twitter.png" alt="twitter"></img></a></span>
       <p class="Copyright">2018 Copyright Holder All Rights Reserved. &copy </p>
-      <span><a class="logoFacebook" href="https://es-la.facebook.com/"><img class="logoFacebook" src="../static/logoFacebook.png"></img></a></span>
     </footer>
 </body>
 </html>

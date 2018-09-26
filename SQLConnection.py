@@ -1,7 +1,7 @@
 import pymysql
 
 
-class DB:
+class DB(object):
     __instance = None
     __host = None
     __user = None

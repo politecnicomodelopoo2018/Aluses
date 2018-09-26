@@ -3,17 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Página principal</title>
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/AdminCss.css">
 </head>
 <body>
-    <nav class="navegación" role="navigation">
+  <header>
+    <h1>Aluses Airlines</h1>
+    <h4>Admin</h4>
+  </header>
+  <main>
+    <nav class="navegación clearfix" role="navigation">
         <ul>
-            <li role="listitem"><a href="/user">User</a></li>
-            <li role="listitem"><a href="/planeModel">Plane model</a></li>
-            <li role="listitem"><a href="/seats">Seats</a></li>
-            <li role="listitem"><a href="/plane">Plane</a></li>
-            <li role="listitem"><a href="/flight">Flight</a></li>
-            <li role="listitem"><a href="/flightUser">Flight user</a></li>
+            <li role="listitem"><a href="/user"><button type="button">User</button></a></li>
+            <li role="listitem"><a href="/planeModel"><button type="button">Plane model</button></a></li>
+            <li role="listitem"><a href="/seats"><button type="button">Seats</button></a></li>
+            <li role="listitem"><a href="/plane"><button type="button">Plane</button></a></li>
+            <li role="listitem"><a href="/flight"><button type="button">Flight</button></a></li>
+            <li role="listitem"><a href="/flightUser"><button type="button">Flight user</button></a></li>
         </ul>
     </nav>
+  </main>
 </body>
 </html>

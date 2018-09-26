@@ -1,0 +1,43 @@
+html{
+  box-sizing: border-box;
+}
+*{
+  font-family: "Times New Roman", Times, serif;
+}
+body{
+  margin: 0;
+  padding: 0;
+  background: #2fffff;
+}
+header{
+  text-align: center;
+}
+header h1{
+  margin-bottom: -25px;
+}
+.clearfix{
+  content: '';
+  display: block;
+  clear: both;
+}
+nav ul{
+  margin-left: 5%;
+}
+nav ul li {
+  float:left;
+  list-style: none;
+  width: 30%
+}
+nav ul li button{
+  border: 5px solid #000000;
+  padding: 50px 0px;
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  text-align: center;
+  margin: 5%;
+  text-decoration: none;
+  color: #000000;
+  font-size: 20px;
+  font-weight: bold;
+}
