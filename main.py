@@ -35,6 +35,7 @@ def home():
     listaLLegadaArriv = []
     listaDepartureDatetime = []
     listaArrivalDatetime = []
+    active = False
     for item in listaVuelos:
         if item.departure not in listaSalidasDepar:
             listaSalidas.append(item)
@@ -44,7 +45,7 @@ def home():
             listaLLegada.append(item)
             listaLLegadaArriv.append(item.arrival)
     return render_template('UserHome.html', listaVuelos=listaVuelos, listaSalidas=listaSalidas,
-                           listaLLegada=listaLLegada)
+                           listaLLegada=listaLLegada, active=active)
 
 
 @app.route('/admin')
@@ -62,9 +63,9 @@ def confirmSignIn():
     mail = request.form.get('mail')
     password = request.form.get('password')
     user = User.SelectUserMailPassword(mail, password)
+    Session()
     if user is None:
         return redirect('/signIn')
-    Session()
     if not user.idUser in session:
         session['idUser'] = user.idUser
         session['name'] = user.name

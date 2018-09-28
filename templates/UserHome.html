@@ -15,10 +15,14 @@
             <button type="button" class="configuration">
             <img src="../static/img/configuration.png" alt="logo configuracion" width="20px" height="20px"> <!-- cambiarlo a archivo css-->
             </button>
-            <nav role="navigation" class="navigation">
-              <a href="/signIn"><button class="button" type="button" name="signIn" role="button">Iniciar sesión</button></a>
-              <a href="/signUp"><button class="button" type="button" name="signUp" role="button">Registrarse</button></a>
-            </nav>
+            {{session['name']}}
+            <button type="button" onclick="{{session.clear()}}">borrar sesion</button>
+            {% if active != True %}
+              <nav role="navigation" class="navigation">
+                <a href="/signIn"><button class="button" type="button" name="signIn" role="button">Iniciar sesión</button></a>
+                <a href="/signUp"><button class="button" type="button" name="signUp" role="button">Registrarse</button></a>
+              </nav>
+             {% endif %}
         </aside>
       </div>
     </header>
