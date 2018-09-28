@@ -19,11 +19,11 @@ Admin = User(1, 'Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1
 def Session():
     if not 'idUser' in session:
         session['idUser'] = session.get('idUser')
-        session['name'] = session.get('name')
-        session['lastname'] = session.get('lastname')
-        session['mail'] = session.get('mail')
-        session['password'] = session.get('password')
-        session['administrador'] = session.get('administrador')
+        # session['name'] = session.get('name')
+        # session['lastname'] = session.get('lastname')
+        # session['mail'] = session.get('mail')
+        # session['password'] = session.get('password')
+        # session['administrador'] = session.get('administrador')
 
 
 @app.route('/home', methods=['GET'])
@@ -36,6 +36,8 @@ def home():
     listaDepartureDatetime = []
     listaArrivalDatetime = []
     active = False
+    if 'idUser' in session:
+        active = True
     for item in listaVuelos:
         if item.departure not in listaSalidasDepar:
             listaSalidas.append(item)
@@ -63,16 +65,16 @@ def confirmSignIn():
     mail = request.form.get('mail')
     password = request.form.get('password')
     user = User.SelectUserMailPassword(mail, password)
-    Session()
+    # Session()
     if user is None:
         return redirect('/signIn')
     if not user.idUser in session:
         session['idUser'] = user.idUser
-        session['name'] = user.name
-        session['lastname'] = user.lastname
-        session['mail'] = user.mail
-        session['password'] = user.password
-        session['administrador'] = user.administrador
+        # session['name'] = user.name
+        # session['lastname'] = user.lastname
+        # session['mail'] = user.mail
+        # session['password'] = user.password
+        # session['administrador'] = user.administrador
     if user.administrador == 1:
         return redirect('/admin')
     return redirect('/home')
@@ -96,11 +98,17 @@ def confirmSignUp():
     user.InsertUser(name, lastname, mail, password)
     if not user.idUser in session:
         session['idUser'] = user.idUser
-        session['name'] = user.name
-        session['lastname'] = user.lastname
-        session['mail'] = user.mail
-        session['password'] = user.password
-        session['administrador'] = user.administrador
+        # session['name'] = user.name
+        # session['lastname'] = user.lastname
+        # session['mail'] = user.mail
+        # session['password'] = user.password
+        # session['administrador'] = user.administrador
+    return redirect('/home')
+
+
+@app.route('/logOutSesion')
+def logOut():
+    session.pop('idUser', None)
     return redirect('/home')
 
 

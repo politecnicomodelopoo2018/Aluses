@@ -13,10 +13,11 @@
         <br><h4 role="heading">Viva una experiencia unica de vuelo</h4>
         <aside class="login" role="complementary">
             <button type="button" class="configuration">
-            <img src="../static/img/configuration.png" alt="logo configuracion" width="20px" height="20px"> <!-- cambiarlo a archivo css-->
+            <img src="../static/img/configuration.png" alt="logo configuracion">
             </button>
-            {{session['name']}}
-            <button type="button" onclick="{{session.clear()}}">borrar sesion</button>
+            {% if active == True %}
+              <a href="/logOutSesion"><button class="button" type="button" name="logOut" role="button">Borrar sesión</button></a>
+            {% endif %}
             {% if active != True %}
               <nav role="navigation" class="navigation">
                 <a href="/signIn"><button class="button" type="button" name="signIn" role="button">Iniciar sesión</button></a>
