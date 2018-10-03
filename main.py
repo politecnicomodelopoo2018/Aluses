@@ -9,21 +9,16 @@ from ClassFlightUser import FlightUser
 
 app = Flask(__name__)
 app.secret_key = 'AlusesKey'
-
+# reservas usuarios, opcion de admin o user normal para admin, opcion para ver reservas(en un aside), agregar tabla descuentos en bdd
 Database = DB()
 Database.SetConnection("localhost", "root", "alumno", "Aluses")
 
-Admin = User(1, 'Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1)
+# user = User('Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1) ya esta creado, solo para fijarse nombre y contra
 
 
 def Session():
     if not 'idUser' in session:
         session['idUser'] = session.get('idUser')
-        # session['name'] = session.get('name')
-        # session['lastname'] = session.get('lastname')
-        # session['mail'] = session.get('mail')
-        # session['password'] = session.get('password')
-        # session['administrador'] = session.get('administrador')
 
 
 @app.route('/home', methods=['GET'])
@@ -36,8 +31,10 @@ def home():
     listaDepartureDatetime = []
     listaArrivalDatetime = []
     active = False
+    user = User('','','','','')
     if 'idUser' in session:
         active = True
+        user = User.SelectUserID(session['idUser'])
     for item in listaVuelos:
         if item.departure not in listaSalidasDepar:
             listaSalidas.append(item)
@@ -47,7 +44,7 @@ def home():
             listaLLegada.append(item)
             listaLLegadaArriv.append(item.arrival)
     return render_template('UserHome.html', listaVuelos=listaVuelos, listaSalidas=listaSalidas,
-                           listaLLegada=listaLLegada, active=active)
+                           listaLLegada=listaLLegada, active=active, admin=user.administrador)
 
 
 @app.route('/admin')
@@ -65,18 +62,10 @@ def confirmSignIn():
     mail = request.form.get('mail')
     password = request.form.get('password')
     user = User.SelectUserMailPassword(mail, password)
-    # Session()
     if user is None:
         return redirect('/signIn')
     if not user.idUser in session:
         session['idUser'] = user.idUser
-        # session['name'] = user.name
-        # session['lastname'] = user.lastname
-        # session['mail'] = user.mail
-        # session['password'] = user.password
-        # session['administrador'] = user.administrador
-    if user.administrador == 1:
-        return redirect('/admin')
     return redirect('/home')
 
 
@@ -98,16 +87,11 @@ def confirmSignUp():
     user.InsertUser(name, lastname, mail, password)
     if not user.idUser in session:
         session['idUser'] = user.idUser
-        # session['name'] = user.name
-        # session['lastname'] = user.lastname
-        # session['mail'] = user.mail
-        # session['password'] = user.password
-        # session['administrador'] = user.administrador
     return redirect('/home')
 
 
 @app.route('/logOutSesion')
-def logOut():
+def logOut():  
     session.pop('idUser', None)
     return redirect('/home')
 

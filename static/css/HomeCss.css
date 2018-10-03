@@ -28,14 +28,7 @@ aside.login nav.navigation button{
   margin-right: 5px;
   border-radius: 15px;
 }
-.clearfix:before
-.clearfix:after{
-  content: '';
-  display: table;
-}
-.clearfix:after{
-  clear:both;
-}
+
 fieldset.selection{
   width: 600px;
   text-align: center;
@@ -60,16 +53,102 @@ a.logoFacebook img{
   height:17px;
   width: 20px;
 } */
+html{
+  box-sizing: border-box;
+}
+body{
+  margin:0;
+}
+header{
+  background-color: #20ffffad;
+}
+header div.heading{
+  float: left;
+  width: 80%;
+  text-align: center;
+}
+header aside{
+  float: left;
+  width: 20%;
+}
+header aside div{
+  float:right;
+  margin: 5px 5px 5px 0px;
+}
+header aside .session{
+  float: right;
+  margin: 5px 5px 0px 0px;
+}
+header h1{
+  margin: 0px 0px -5px 25px;
+  padding-top: 15px;
+}
+header h4{
+  margin: 0px 0px 10px 25px;
+}
+header aside div.login{
+  margin: 20px 0px 0px 0px;
+  width: 100%;
+}
+ main{
+  width: 90%;
+  margin: 0 auto;
+  background-color: #b8c2c340;
+  display: block;
+}
+main div{
+  width: 70%;
+  float: left;
+}
+ main aside{
+  width: 30%;
+  float: right;
+  text-align: center;
+}
+ footer {
+  background-color: #20ffffad;
+}
+main div.conteiner p{
+  margin-top: 0px;
+  padding:15px 0px 0px 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
 
 .promotions img{
   width:300px;
   height:300px;
 }
  footer img{
-   width:100px;
-   height:100px;
+   width:25px;
+   height:25px;
  }
- .login button img{
+ .configuration button img{
     width: 20px;
     height: 20px;
  }

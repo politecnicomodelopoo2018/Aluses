@@ -8,28 +8,35 @@
 </head>
 <body>
     <header>
-      <div class="heading">
-        <h1 role="heading">Aluses Airlines</h1>
-        <br><h4 role="heading">Viva una experiencia unica de vuelo</h4>
-        <aside class="login" role="complementary">
-            <button type="button" class="configuration">
-            <img src="../static/img/configuration.png" alt="logo configuracion">
-            </button>
-            {% if active == True %}
-              <a href="/logOutSesion"><button class="button" type="button" name="logOut" role="button">Borrar sesión</button></a>
-            {% endif %}
-            {% if active != True %}
-              <nav role="navigation" class="navigation">
-                <a href="/signIn"><button class="button" type="button" name="signIn" role="button">Iniciar sesión</button></a>
-                <a href="/signUp"><button class="button" type="button" name="signUp" role="button">Registrarse</button></a>
-              </nav>
-             {% endif %}
-        </aside>
+      <div class="heading clearfix">
+        <h1 role="heading" class="headers">Aluses Airlines</h1>
+        <br><h4 role="heading" class="headers">Viva una experiencia unica de vuelo</h4>
+      </div>
+      <div class="aside clearfix">
+          <aside role="complementary">
+              <div class="configuration">
+                <!-- si el usuario es administrador poner una opcion de admin o user en lugar del config -->
+                <button type="button" class="button">
+                  <!-- <img src="../static/img/configuration.png" alt="logo configuracion"> -->
+                </button>
+              </div>
+              <div class="login">
+                {% if active == True %}
+                  <a href="/logOutSesion"><button class="button session" type="button" name="logOut" role="button">Borrar sesión</button></a>
+                {% endif %}
+                {% if active != True %}
+                  <nav role="navigation" class="navigation">
+                    <a href="/signUp"><button class="button session" type="button" name="signUp" role="button">Registrarse</button></a>
+                    <a href="/signIn"><button class="button session" type="button" name="signIn" role="button">Iniciar sesión</button></a>
+                  </nav>
+                 {% endif %}
+              </div>
+          </aside>
       </div>
     </header>
-    <main>
-      <div class="conteiner">
+    <main class="clearfix">
         <div class="travel">
+          <!-- fijarse de hacer un form -->
           <p>Organize su viaje</p>
           <input type="text" name="salida" placeholder="ciudad salida">
           <input type="text" name="salida" placeholder="ciudad destino">
@@ -37,7 +44,6 @@
           <input type="datetime-local" name="salida" placeholder="fecha vuelta">
           <button type="button" class="button buscar">Buscar</button>
         </div>
-      </div> <!-- conteiner -->
         <div class="news">
           <article class="promotions">
 
@@ -60,19 +66,23 @@
             <img src="../static/img/Holanda.png" alt="Holanda image">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <button type="button" name="button">Compra tu pasaje</button>
-
           </article>
-        </div>
-      </div> <!-- contenedor -->
+        </div> <!-- contenedor -->
+      <aside class="reservations">
+        <h2>Tus reservas</h2>
+          <!-- meter lista de reservas en for-->
 
+      </aside>
     </main>
     <footer>
-      <h2>Nuestras redes</h2>
-      <span><a href="https://es-la.facebook.com/"><img class="logoFacebook" src="../static/img/facebook.png" alt="logoFacebook"></img></a></span>
-      <span><a href="https://www.instagram.com/?hl=es-la"><img class="logoInstagram" src="../static/img/Instagram.png" alt="logoInstagram"></img></a></span>
-      <span><a href="https://ar.linkedin.com/"><img class="logoLinkedin" src="../static/img/linkedin.png" alt="logoLinkedin"></img></a></span>
-      <span><a href="https://twitter.com/?lang=es"><img class="logoTwitter" src="../static/img/Twitter.png" alt="twitter"></img></a></span>
-      <p class="Copyright">2018 Copyright Holder All Rights Reserved. &copy </p>
+      <div class="clearfix">
+        <h2>Nuestras redes</h2>
+        <span><a href="https://es-la.facebook.com/"><img class="logoFacebook" src="../static/img/facebook.png" alt="logoFacebook"></img></a></span>
+        <span><a href="https://www.instagram.com/?hl=es-la"><img class="logoInstagram" src="../static/img/Instagram.png" alt="logoInstagram"></img></a></span>
+        <span><a href="https://ar.linkedin.com/"><img class="logoLinkedin" src="../static/img/linkedin.png" alt="logoLinkedin"></img></a></span>
+        <span><a href="https://twitter.com/?lang=es"><img class="logoTwitter" src="../static/img/Twitter.png" alt="twitter"></img></a></span>
+        <p class="Copyright">2018 Copyright Holder All Rights Reserved. &copy </p>
+      </div>
     </footer>
 </body>
 </html>
