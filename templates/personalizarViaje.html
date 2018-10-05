@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/viaje.css">
+</head>
+<body>
+    <header>
+      <div class="heading clearfix">
+        <h1 role="heading" class="headers">Aluses Airlines</h1>
+        <h4 role="heading" class="headers">Viva una experiencia unica de vuelo</h4>
+      </div>
+      <div class="aside user clearfix">
+          <aside role="complementary">
+            {% if admin == 1 %}
+              <a href="/admin" class="admin"><button class="button" type="button" name="admin" role="button">Admin</button></a>
+            {% endif %}
+            <a href="/home" class="volver"><button class="button volver" type="button" name="Volver" role="button">Volver atrás</button></a>
+          </aside>
+      </div>
+    </header>
+    <main class="clearfix">
+        <div class="travel">
+          <!-- fijarse de hacer un form -->
+          <p>Organize su viaje</p>
+          <input type="text" name="salida" placeholder="ciudad salida">
+          <input type="text" name="salida" placeholder="ciudad destino">
+          <input type="datetime-local" name="salida" placeholder="fecha ida">
+          <input type="datetime-local" name="salida" placeholder="fecha vuelta">
+          <button type="button" class="button buscar">Buscar</button>
+        </div>
+        <aside class="reservations">
+          <h2>Tus reservas</h2>
+            <!-- meter lista de reservas en for-->
+
+        </aside>
+      </main>
+      <footer>
+        <div class="clearfix">
+          <h2>Nuestras redes</h2>
+          <span><a href="https://es-la.facebook.com/"><img class="logoFacebook" src="../static/img/facebook.png" alt="logoFacebook"></img></a></span>
+          <span><a href="https://www.instagram.com/?hl=es-la"><img class="logoInstagram" src="../static/img/Instagram.png" alt="logoInstagram"></img></a></span>
+          <span><a href="https://ar.linkedin.com/"><img class="logoLinkedin" src="../static/img/linkedin.png" alt="logoLinkedin"></img></a></span>
+          <span><a href="https://twitter.com/?lang=es"><img class="logoTwitter" src="../static/img/Twitter.png" alt="twitter"></img></a></span>
+          <p class="Copyright">2018 Copyright Holder All Rights Reserved. &copy </p>
+        </div>
+      </footer>
+  </body>
+  </html>

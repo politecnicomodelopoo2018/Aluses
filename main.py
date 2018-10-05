@@ -9,7 +9,7 @@ from ClassFlightUser import FlightUser
 
 app = Flask(__name__)
 app.secret_key = 'AlusesKey'
-# reservas usuarios, opcion de admin o user normal para admin, opcion para ver reservas(en un aside), agregar tabla descuentos en bdd
+# reservas usuarios, opcion para ver reservas(en un aside), agregar tabla descuentos, reservas en bdd
 Database = DB()
 Database.SetConnection("localhost", "root", "alumno", "Aluses")
 
@@ -31,7 +31,7 @@ def home():
     listaDepartureDatetime = []
     listaArrivalDatetime = []
     active = False
-    user = User('','','','','')
+    user = User('', '', '', '', '')
     if 'idUser' in session:
         active = True
         user = User.SelectUserID(session['idUser'])
@@ -94,6 +94,14 @@ def confirmSignUp():
 def logOut():  
     session.pop('idUser', None)
     return redirect('/home')
+
+
+@app.route('/personalizaTuViaje')
+def personalizarViaje():
+    user = User('', '', '', '', '')
+    if 'idUser' in session:
+        user = User.SelectUserID(session['idUser'])
+    return render_template('personalizarViaje.html', admin=user.administrador)
 
 
 @app.route('/user')

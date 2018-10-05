@@ -1,13 +1,4 @@
-/*
-aside.login nav.navigation button{
-  border: 5px, 5px, 5px, 5px;
-  border-color: #000000;
-  background-color: #44b1ca;
-  width: 75px;
-  height: 30px;
-  margin-right: 5px;
-  border-radius: 15px;
-}*/
+
 html{
   box-sizing: border-box;
 }
@@ -19,12 +10,12 @@ header{
 }
 header div.heading{
   float: left;
-  width: 80%;
+  width: 90%;
   text-align: center;
 }
 header aside{
   float: left;
-  width: 20%;
+  width: 10%;
 }
 header aside div{
   float:right;
@@ -53,11 +44,22 @@ header aside div.login a.cerrarSesion{
   float: right;
   margin: 25px 0px 5px 0px;
 }
+header div.user aside a{
+  float:right;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+header div.user aside a.admin{
+  margin: 5px -15px 0px 0px;
+}
+header div.user aside a.volver{
+  margin: 20px 0px 0px 0px;
+}
  main{
   width: 90%;
   margin: 0 auto;
   background-color: #b8c2c340;
-  display: block;
 }
 main div{
   width: 70%;

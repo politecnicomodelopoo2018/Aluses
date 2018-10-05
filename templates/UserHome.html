@@ -5,6 +5,7 @@
     <title>home</title>
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="/static/css/HomeCss.css">
+    <script src="home.js"></script>
 </head>
 <body>
     <header>
@@ -16,18 +17,18 @@
           <aside role="complementary">
               <div class="configuration">
                 <!-- si el usuario es administrador poner una opcion de admin o user en lugar del config -->
-                <button type="button" class="button">
-                  <!-- <img src="../static/img/configuration.png" alt="logo configuracion"> -->
-                </button>
+                {% if admin == 1 %}
+                  <a href="/admin"><button class="button" type="button" name="admin" role="button">Admin</button></a>
+                {% endif %}
               </div>
               <div class="login">
                 {% if active == True %}
-                  <a href="/logOutSesion"><button class="button session" type="button" name="logOut" role="button">Borrar sesión</button></a>
+                  <a href="/logOutSesion" class="cerrarSesion"><button class="button session" type="button" name="logOut" role="button">Cerrar sesión</button></a>
                 {% endif %}
                 {% if active != True %}
-                  <nav role="navigation" class="navigation">
-                    <a href="/signUp"><button class="button session" type="button" name="signUp" role="button">Registrarse</button></a>
+                  <nav role="navigation" class="login">
                     <a href="/signIn"><button class="button session" type="button" name="signIn" role="button">Iniciar sesión</button></a>
+                    <a href="/signUp"><button class="button session" type="button" name="signUp" role="button">Registrarse</button></a>
                   </nav>
                  {% endif %}
               </div>
@@ -36,6 +37,7 @@
     </header>
     <main class="clearfix">
         <div class="travel">
+          <a href="/personalizaTuViaje"><button class="travel" type="button" name="travelButton" onclick="alert('Debe iniciar sesión o registrarse')" >Personalíza tu viaje</button></a>
           <!-- fijarse de hacer un form -->
           <p>Organize su viaje</p>
           <input type="text" name="salida" placeholder="ciudad salida">
