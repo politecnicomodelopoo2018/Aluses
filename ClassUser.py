@@ -25,7 +25,7 @@ class User(object):
     @staticmethod
     def DeleteUserFlight(idUser):
         Database = DB()
-        Database.run("DELETE FROM Flight_has_Person WHERE idUser = %s;", str(idUser))
+        Database.run("DELETE FROM Flight_has_User WHERE idUser = %s;", str(idUser))
 
     @staticmethod
     def DeleteUser(idUser):

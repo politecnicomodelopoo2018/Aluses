@@ -28,6 +28,7 @@
         <th role="columnheader">avion</th>
         <th role="columnheader">fecha salida</th>
         <th role="columnheader">fecha llegada</th>
+        <th role="columnheader">descuento</th>
     </tr>
     {% for item in listaFlight %}
         <tr role="row">
@@ -37,6 +38,7 @@
             <td role="cell">{{ item.Plane.idPlane }}</td>
             <td role="cell">{{ item.flightDepartureDatetime }}</td>
             <td role="cell">{{ item.flightArrivalDatetime }}</td>
+            <td role="cell">{{ item.percentDiscount }}</td>
             <td role="cell"><a href="/flight/editarFlight?idFlight={{item.idFlight}}">editar</a></td>
             <td role="cell"><a href="/flight/deleteFlight?idFlight={{item.idFlight}}">borrar</a></td>
         </tr>

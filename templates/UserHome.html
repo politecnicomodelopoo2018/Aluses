@@ -36,44 +36,47 @@
       </div>
     </header>
     <main class="clearfix">
+      {% if active == True %}
         <div class="travel">
-          <a href="/personalizaTuViaje"><button class="travel" type="button" name="travelButton" onclick="alert('Debe iniciar sesión o registrarse')" >Personalíza tu viaje</button></a>
-          <!-- fijarse de hacer un form -->
-          <p>Organize su viaje</p>
-          <input type="text" name="salida" placeholder="ciudad salida">
-          <input type="text" name="salida" placeholder="ciudad destino">
-          <input type="datetime-local" name="salida" placeholder="fecha ida">
-          <input type="datetime-local" name="salida" placeholder="fecha vuelta">
-          <button type="button" class="button buscar">Buscar</button>
+          <a href="/personalizaTuViaje"><button class="travel" type="button" name="travelButton" onclick="alert('Debe iniciar sesión o registrarse')">Programa tu viaje aquí</button></a>
         </div>
+      {% endif %}
         <div class="news">
-          <article class="promotions">
+          <article class="Londres">
 
             <p> Viaje a Londres: </p>
             <img src="../static/img/londres.jpg" alt="Londres image">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <button type="button" name="button">Compra tu pasaje</button>
+          </article>
+
+          <article class="Paris">
 
             <p> Viaje a Paris: </p>
             <img src="../static/img/paris.jpeg" alt="Paris image">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <button type="button" name="button">Compra tu pasaje</button>
+          </article>
+
+          <article class="Rumania">
 
             <p> Viaje a Rumania: </p>
             <img src="../static/img/rumania.jpeg" alt="Rumania image">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <button type="button" name="button">Compra tu pasaje</button>
+          </article>
+
+          <article class="Holanda">
 
             <p> Viaje a Holanda: </p>
             <img src="../static/img/Holanda.png" alt="Holanda image">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <button type="button" name="button">Compra tu pasaje</button>
           </article>
         </div> <!-- contenedor -->
       <aside class="reservations">
         <h2>Tus reservas</h2>
           <!-- meter lista de reservas en for-->
-
       </aside>
     </main>
     <footer>

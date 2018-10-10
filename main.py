@@ -9,11 +9,15 @@ from ClassFlightUser import FlightUser
 
 app = Flask(__name__)
 app.secret_key = 'AlusesKey'
-# reservas usuarios, opcion para ver reservas(en un aside), agregar tabla descuentos, reservas en bdd
+# opcion para ver reservas(en un aside), organizar viaje personalizado (Jquery)
 Database = DB()
 Database.SetConnection("localhost", "root", "alumno", "Aluses")
 
-# user = User('Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1) ya esta creado, solo para fijarse nombre y contra
+
+# user = User('Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1)  # ya esta creado, solo para fijarse nombre y contra
+# user.InsertUser('Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1)
+# user = User('Sebastian', 'Elustondo', 'sebastianelustondo@gmail.com', 'Patuco20', 1)  # ya esta creado, solo para fijarse nombre y contra
+# user.InsertUser('Sebastian', 'Elustondo', 'sebastianelustondo@gmail.com', 'Patuco20', 1)
 
 
 def Session():
@@ -23,28 +27,12 @@ def Session():
 
 @app.route('/home', methods=['GET'])
 def home():
-    listaVuelos = Flight.SelectFlights()
-    listaSalidas = []
-    listaSalidasDepar = []
-    listaLLegada = []
-    listaLLegadaArriv = []
-    listaDepartureDatetime = []
-    listaArrivalDatetime = []
     active = False
     user = User('', '', '', '', '')
     if 'idUser' in session:
         active = True
         user = User.SelectUserID(session['idUser'])
-    for item in listaVuelos:
-        if item.departure not in listaSalidasDepar:
-            listaSalidas.append(item)
-            listaSalidasDepar.append(item.departure)
-    for item in listaVuelos:
-        if item.arrival not in listaLLegadaArriv:
-            listaLLegada.append(item)
-            listaLLegadaArriv.append(item.arrival)
-    return render_template('UserHome.html', listaVuelos=listaVuelos, listaSalidas=listaSalidas,
-                           listaLLegada=listaLLegada, active=active, admin=user.administrador)
+    return render_template('UserHome.html', active=active, admin=user.administrador)
 
 
 @app.route('/admin')
@@ -98,10 +86,11 @@ def logOut():
 
 @app.route('/personalizaTuViaje')
 def personalizarViaje():
+    listaVuelos = Flight.SelectFlights()
     user = User('', '', '', '', '')
     if 'idUser' in session:
         user = User.SelectUserID(session['idUser'])
-    return render_template('personalizarViaje.html', admin=user.administrador)
+    return render_template('personalizarViaje.html', admin=user.administrador, listaVuelos=listaVuelos)
 
 
 @app.route('/user')
@@ -300,8 +289,9 @@ def insertFlight():
     idPlane = request.form.get('idPlane')
     flightDepartureDatetime = request.form.get('flightDepartureDatetime')
     flightArrivalDatetime = request.form.get('flightArrivalDatetime')
+    percentDiscount = request.form.get('percentDiscount')
     plane = Plane.SelectPlaneID(idPlane)
-    flight = Flight("NULL", departure, arrival, plane, flightDepartureDatetime, flightArrivalDatetime)
+    flight = Flight("NULL", departure, arrival, plane, flightDepartureDatetime, flightArrivalDatetime, percentDiscount)
     flight.InsertFlight()
     return redirect('/flight')
 
@@ -320,9 +310,10 @@ def editFlight():
     idPlane = request.form.get('idPlane')
     flightDepartureDatetime = request.form.get('flightDepartureDatetime')
     flightArrivalDatetime = request.form.get('flightArrivalDatetime')
+    percentDiscount = request.form.get('percentDiscount')
     plane = Plane.SelectPlaneID(idPlane)
     flight = Flight.SelectFlightsID(idFlight)
-    flight.UpdateFlight(departure, arrival, plane, flightDepartureDatetime, flightArrivalDatetime)
+    flight.UpdateFlight(departure, arrival, plane, flightDepartureDatetime, flightArrivalDatetime, percentDiscount)
     return redirect('/flight')
 
 

@@ -68,6 +68,28 @@ main div{
   float: right;
   text-align: center;
 }
+main div.travel button{
+  border: 5px, 5px, 5px, 5px;
+  border-color: #000000;
+  background-color: #20ffffad;
+  width: 75%;
+  height: 30px;
+  margin-right: 5px;
+  border-radius: 15px;
+  margin: 20px 0px 10px 20px;
+}
+main div article {
+  margin: 20px 0px 10px 10px;
+  height: 300px;
+}
+main div article img{
+  width: 50%;
+  float: left;
+}
+main div article p.text{
+  width: 50%;
+  float: left;
+}
  footer {
   background-color: #20ffffad;
 }
