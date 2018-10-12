@@ -87,8 +87,12 @@ main div article img{
   float: left;
 }
 main div article p.text{
-  width: 50%;
+  width: 47%;
   float: left;
+  margin-left:3%;
+}
+main div article button{
+  margin-left:3%;
 }
  footer {
   background-color: #20ffffad;

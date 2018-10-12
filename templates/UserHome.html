@@ -38,7 +38,7 @@
     <main class="clearfix">
       {% if active == True %}
         <div class="travel">
-          <a href="/personalizaTuViaje"><button class="travel" type="button" name="travelButton" onclick="alert('Debe iniciar sesión o registrarse')">Programa tu viaje aquí</button></a>
+          <a href="/personalizaTuViaje"><button class="travel" type="button" name="travelButton">Programa tu viaje aquí</button></a>
         </div>
       {% endif %}
         <div class="news">
@@ -47,7 +47,9 @@
             <p> Viaje a Londres: </p>
             <img src="../static/img/londres.jpg" alt="Londres image">
             <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <button type="button" name="button">Compra tu pasaje</button>
+            {% if active == True %}
+              <button type="button" name="button">Reserva tu pasaje</button>
+            {% endif%}
           </article>
 
           <article class="Paris">
@@ -55,7 +57,9 @@
             <p> Viaje a Paris: </p>
             <img src="../static/img/paris.jpeg" alt="Paris image">
             <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <button type="button" name="button">Compra tu pasaje</button>
+            {% if active == True %}
+              <button type="button" name="button">Reserva tu pasaje</button>
+            {% endif%}
           </article>
 
           <article class="Rumania">
@@ -63,7 +67,9 @@
             <p> Viaje a Rumania: </p>
             <img src="../static/img/rumania.jpeg" alt="Rumania image">
             <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <button type="button" name="button">Compra tu pasaje</button>
+            {% if active == True %}
+              <button type="button" name="button">Reserva tu pasaje</button>
+            {% endif%}
           </article>
 
           <article class="Holanda">
@@ -71,7 +77,9 @@
             <p> Viaje a Holanda: </p>
             <img src="../static/img/Holanda.png" alt="Holanda image">
             <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <button type="button" name="button">Compra tu pasaje</button>
+            {% if active == True %}
+              <button type="button" name="button">Reserva tu pasaje</button>
+            {% endif%}
           </article>
         </div> <!-- contenedor -->
       <aside class="reservations">

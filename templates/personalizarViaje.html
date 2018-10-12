@@ -5,6 +5,8 @@
     <title>home</title>
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="/static/css/viaje.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/static/JavaScript/viaje.js"></script>
 </head>
 <body>
     <header>
@@ -17,20 +19,44 @@
             {% if admin == 1 %}
               <a href="/admin" class="admin"><button class="button" type="button" name="admin" role="button">Admin</button></a>
             {% endif %}
-            <a href="/home" class="volver"><button class="button volver" type="button" name="Volver" role="button">Volver atrás</button></a>
           </aside>
       </div>
     </header>
     <main class="clearfix">
         <div class="travel">
-          <!-- fijarse de hacer un form -->
-          <p>Organize su viaje</p>
-          <input type="text" name="salida" placeholder="ciudad salida">
-          <input type="text" name="salida" placeholder="ciudad destino">
-          <input type="datetime-local" name="salida" placeholder="fecha ida">
-          <input type="datetime-local" name="salida" placeholder="fecha vuelta">
-          <button type="button" class="button buscar">Buscar</button>
+          <form>
+            <p>Busca por:</p>
+            <select class="option salida" name="salida">
+              <option selected value> -- selecciona tu salida -- </option>
+              {% for item in listaVuelos %}
+                <option value="{{ item.departure }}">{{ item.departure }}</option>
+              {% endfor %}
+            </select>
+            <!-- <p id="demo"></p> -->
+            <select class="option llegada" name="llegada">
+              <option selected value> -- selecciona tu llegada -- </option>
+                {% for item in listaVuelos %}
+                  <option value="{{ item.arrival }}">{{ item.arrival }}</option>
+                {% endfor %}
+            </select>
+            <select class="option fecha-ida" name="fecha ida">
+              <option selected value> -- selecciona tu fecha de ida -- </option>
+                {% for item in listaVuelos %}
+                  <option value="{{ item.flightDepartureDatetime }}">{{ item.flightDepartureDatetime }}</option>
+                {% endfor %}
+            </select>
+            <select class="option fecha-vuelta" name="fecha vuelta">
+              <option selected value> -- selecciona tu fecha de vuelta -- </option>
+              {% for item in listaVuelos %}
+                <option value="{{ item.flightArrivalDatetime }}">{{ item.flightArrivalDatetime }}</option>
+              {% endfor %}
+            </select>
+            <button type="button" class="button buscar">Buscar</button>
+          </form>
         </div>
+
+
+
         <aside class="reservations">
           <h2>Tus reservas</h2>
             <!-- meter lista de reservas en for-->

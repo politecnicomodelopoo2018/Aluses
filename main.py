@@ -9,7 +9,7 @@ from ClassFlightUser import FlightUser
 
 app = Flask(__name__)
 app.secret_key = 'AlusesKey'
-# opcion para ver reservas(en un aside), organizar viaje personalizado (Jquery)
+# opcion para ver reservas(en un aside), organizar viaje personalizado (Jquery), mostrar bustacas para seleccionar(super bado)
 Database = DB()
 Database.SetConnection("localhost", "root", "alumno", "Aluses")
 
