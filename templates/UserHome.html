@@ -36,11 +36,6 @@
       </div>
     </header>
     <main class="clearfix">
-      {% if active == True %}
-        <div class="travel">
-          <a href="/personalizaTuViaje"><button class="travel" type="button" name="travelButton">Programa tu viaje aquí</button></a>
-        </div>
-      {% endif %}
         <div class="news">
           <article class="Londres">
 
@@ -84,7 +79,11 @@
         </div> <!-- contenedor -->
       <aside class="reservations">
         <h2>Tus reservas</h2>
-          <!-- meter lista de reservas en for-->
+        {% if active == True %}
+          <div class="travel">
+            <a href="/personalizaTuViaje"><button class="travel" type="button" name="travelButton">Crea tu viaje</button></a>
+          </div>
+        {% endif %}
       </aside>
     </main>
     <footer>

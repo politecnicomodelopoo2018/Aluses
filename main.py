@@ -84,13 +84,45 @@ def logOut():
     return redirect('/home')
 
 
-@app.route('/personalizaTuViaje')
+@app.route('/personalizaTuViaje', methods=['POST', 'GET'])
 def personalizarViaje():
     listaVuelos = Flight.SelectFlights()
+    listaSalidas = []
+    listaLLegadas = []
+    listaIdas = []
+    listaVueltas = []
     user = User('', '', '', '', '')
+    existe = False
+    flight = None
     if 'idUser' in session:
         user = User.SelectUserID(session['idUser'])
-    return render_template('personalizarViaje.html', admin=user.administrador, listaVuelos=listaVuelos)
+    for item in listaVuelos:
+        if item.departure not in listaSalidas:
+            listaSalidas.append(item.departure)
+        if item.arrival not in listaLLegadas:
+            listaLLegadas.append(item.arrival)
+        if item.flightDepartureDatetime not in listaIdas:
+            listaIdas.append(item.flightDepartureDatetime)
+        if item.flightArrivalDatetime not in listaVueltas:
+            listaVueltas.append(item.flightArrivalDatetime)
+
+    salida = request.form.get('salida')
+    llegada = request.form.get('llegada')
+    fechaIda = request.form.get('fecha-ida')
+    fechaVuelta = request.form.get('fecha-vuelta')
+    if salida is not None and llegada is not None and fechaIda is not None and fechaVuelta is not None:
+        flight = Flight.BuscarViaje(salida, llegada, fechaIda, fechaVuelta)
+        if flight:
+            existe = True
+
+    return render_template('personalizarViaje.html', admin=user.administrador, listaVuelos=listaVuelos,
+                           listaSalidas=listaSalidas, listaLLegadas=listaLLegadas, listaIdas=listaIdas,
+                           listaVueltas=listaVueltas, flight=flight, existe=existe)
+
+
+@app.route('/reservarViaje', methods=['POST'])
+def reservarViaje():
+    return redirect('home')
 
 
 @app.route('/user')

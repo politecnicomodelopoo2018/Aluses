@@ -1,5 +1,6 @@
 from SQLConnection import DB
 from ClassPlane import Plane as ClassPlane
+from datetime import datetime
 
 
 class Flight(object):
@@ -54,6 +55,19 @@ class Flight(object):
     def SelectFlightsID(idFlight):
         Database = DB()
         flightsCursor = Database.run("SELECT * FROM Flight WHERE idFlight = %s;", str(idFlight))
+        flightsDict = flightsCursor.fetchone()
+        tmpFlight = Flight.GetFlight(flightsDict)
+        flight = Flight(tmpFlight[0], tmpFlight[1], tmpFlight[2], tmpFlight[3], tmpFlight[4], tmpFlight[5],
+                        tmpFlight[6])
+        return flight
+
+    @staticmethod
+    def BuscarViaje(salida, llegada, fechaIda, fechaVuelta):
+        Database = DB()
+        flightsCursor = Database.run("SELECT * FROM Flight WHERE departure = %s, arrival = %s," +
+                                     " flightDepartureDatetime = %s, flightArrivalDatetime = %s;",
+                                     (str(salida), str(llegada), datetime.strptime(fechaIda, '%Y-%m-%d %H:%M:%S'),
+                                      datetime.strptime(fechaVuelta, '%Y-%m-%d %H:%M:%S')))
         flightsDict = flightsCursor.fetchone()
         tmpFlight = Flight.GetFlight(flightsDict)
         flight = Flight(tmpFlight[0], tmpFlight[1], tmpFlight[2], tmpFlight[3], tmpFlight[4], tmpFlight[5],
