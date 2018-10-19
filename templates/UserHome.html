@@ -79,6 +79,14 @@
         </div> <!-- contenedor -->
       <aside class="reservations">
         <h2>Tus reservas</h2>
+        <h3>Vuelos reservados hacia:</h3>
+          {% for item in listaVuelosUser %}
+            <ul>
+              {{item.FlightObj.arrival}}
+            </ul>
+          {% endfor %}
+
+
         {% if active == True %}
           <div class="travel">
             <a href="/personalizaTuViaje"><button class="travel" type="button" name="travelButton">Crea tu viaje</button></a>

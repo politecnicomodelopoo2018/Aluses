@@ -53,6 +53,18 @@ class FlightUser(object):
         return flightUser
 
     @staticmethod
+    def SelectUsers(idUser):
+        Database = DB()
+        cursorFlightUser = Database.run("SELECT * FROM Flight_has_User WHERE idUser = %s;", str(idUser))
+        dictFlightUser = cursorFlightUser.fetchall()
+        listaVuelosUser = []
+        for item in dictFlightUser:
+            tmpFlightUser = FlightUser.GetFlightUser(item)
+            flightUser = FlightUser(tmpFlightUser[0], tmpFlightUser[1], tmpFlightUser[2])
+            listaVuelosUser.append(flightUser)
+        return listaVuelosUser
+
+    @staticmethod
     def GetFlightUser(dic):
         flight = Flight.SelectFlightsID(dic["idFlight"])
         user = User.SelectUserID(dic["idUser"])

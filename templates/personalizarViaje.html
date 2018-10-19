@@ -59,24 +59,34 @@
                 {% endfor %}
                 </select>
 
+                <input type="text" name="idSeat" placeholder="idSeat">
             <button type="submit" class="button buscar">Buscar</button>
           </form>
         </div>
 
-        {% if existe == True %}
+        {% if exist == True %}
           <div class="ReservarViaje">
             <form action="/reservarViaje" method="post">
-              {% for item in Flight %}
-                {{item}}
-              {% endfor%}
-              <button type="button" class="button reservar">Reservar viaje</button>
+              <input type="text" name="idFlight" value="{{flight.idFlight}}" readonly>
+              <input type="text" name="departure" value="{{flight.departure}}" readonly>
+              <input type="text" name="arrival" value="{{flight.arrival}}" readonly>
+              <input type="text" name="Plane.idPlane" value="{{flight.Plane.idPlane}}" readonly>
+              <input type="text" name="flightDepartureDatetime" value="{{flight.flightDepartureDatetime}}" readonly>
+              <input type="text" name="flightArrivalDatetime" value="{{flight.flightArrivalDatetime}}" readonly>
+              <input type="text" name="percentDiscount" value="{{flight.percentDiscount}}" readonly>
+              <input type="text" name="idSeat" value="{{idSeat}}" readonly>
+              <button type="sumbit" class="button reservar">Reservar viaje</button>
             </form>
-
           </div>
         {% endif %}
         <aside class="reservations">
           <h2>Tus reservas</h2>
-            <!-- meter lista de reservas en for-->
+          <h3>Vuelos reservados hacia:</h3>
+            {% for item in listaVuelosUsuario %}
+              <ul>
+                {{item.FlightObj.arrival}}
+              </ul>
+            {% endfor %}
 
         </aside>
       </main>

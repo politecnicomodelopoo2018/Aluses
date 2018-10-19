@@ -32,7 +32,8 @@ def home():
     if 'idUser' in session:
         active = True
         user = User.SelectUserID(session['idUser'])
-    return render_template('UserHome.html', active=active, admin=user.administrador)
+    listaVuelosUser = FlightUser.SelectUsers(user.idUser)
+    return render_template('UserHome.html', active=active, admin=user.administrador, listaVuelosUser=listaVuelosUser)
 
 
 @app.route('/admin')
@@ -92,7 +93,7 @@ def personalizarViaje():
     listaIdas = []
     listaVueltas = []
     user = User('', '', '', '', '')
-    existe = False
+    exist = False
     flight = None
     if 'idUser' in session:
         user = User.SelectUserID(session['idUser'])
@@ -110,18 +111,29 @@ def personalizarViaje():
     llegada = request.form.get('llegada')
     fechaIda = request.form.get('fecha-ida')
     fechaVuelta = request.form.get('fecha-vuelta')
+    idSeat = request.form.get('idSeat')
     if salida is not None and llegada is not None and fechaIda is not None and fechaVuelta is not None:
         flight = Flight.BuscarViaje(salida, llegada, fechaIda, fechaVuelta)
         if flight:
-            existe = True
+            exist = True
+
+    listaVuelosUsuario = FlightUser.SelectUsers(user.idUser)
 
     return render_template('personalizarViaje.html', admin=user.administrador, listaVuelos=listaVuelos,
                            listaSalidas=listaSalidas, listaLLegadas=listaLLegadas, listaIdas=listaIdas,
-                           listaVueltas=listaVueltas, flight=flight, existe=existe)
+                           listaVueltas=listaVueltas, flight=flight, exist=exist, listaVuelosUsuario=listaVuelosUsuario,
+                           idSeat=idSeat)
 
 
-@app.route('/reservarViaje', methods=['POST'])
+@app.route('/reservarViaje', methods=['POST', 'GET'])
 def reservarViaje():
+    idFlight = request.form.get('idFlight')
+    idSeat = request.form.get('idSeat')
+    flight = Flight.SelectFlightsID(idFlight)
+    user = User.SelectUserID(session['idUser'])
+    seat = Seats.SelectSeatsID(idSeat)
+    flightUser = FlightUser(flight, user, seat)
+    flightUser.InsertFlightUser()
     return redirect('home')
 
 
