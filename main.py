@@ -9,7 +9,7 @@ from ClassFlightUser import FlightUser
 
 app = Flask(__name__)
 app.secret_key = 'AlusesKey'
-# opcion para ver reservas(en un aside), organizar viaje personalizado (Jquery), mostrar bustacas para seleccionar(super bado)
+# mostrar bustacas para seleccionar(super bado)
 Database = DB()
 Database.SetConnection("localhost", "root", "alumno", "Aluses")
 
@@ -87,42 +87,79 @@ def logOut():
 
 @app.route('/personalizaTuViaje', methods=['POST', 'GET'])
 def personalizarViaje():
+    salida = request.form.get('salida')
+    llegada = request.form.get('llegada')
+    fechaIda = request.form.get('fechaIda')
+    fechaVuelta = request.form.get('fechaVuelta')
+    idSeat = request.form.get('asiento')
+
+    flight = Flight.BuscarViaje(salida, llegada, fechaIda, fechaVuelta)
+
+    return render_template('personalizarViaje.html', flight=flight, idSeat=idSeat)
+
+
+@app.route('/elegirSalida')
+def elegirSalida():
     listaVuelos = Flight.SelectFlights()
     listaSalidas = []
-    listaLLegadas = []
-    listaIdas = []
-    listaVueltas = []
-    user = User('', '', '', '', '')
-    exist = False
-    flight = None
-    if 'idUser' in session:
-        user = User.SelectUserID(session['idUser'])
     for item in listaVuelos:
         if item.departure not in listaSalidas:
             listaSalidas.append(item.departure)
+    return render_template('elegirSalida.html', listaSalidas=listaSalidas)
+
+
+@app.route('/elegirLLegada', methods=['POST', 'GET'])
+def elegirLLegada():
+    salida = request.form.get('salida')
+    listaFlight = Flight.BuscarSalida(salida)
+    listaLLegadas = []
+    for item in listaFlight:
         if item.arrival not in listaLLegadas:
             listaLLegadas.append(item.arrival)
-        if item.flightDepartureDatetime not in listaIdas:
-            listaIdas.append(item.flightDepartureDatetime)
-        if item.flightArrivalDatetime not in listaVueltas:
-            listaVueltas.append(item.flightArrivalDatetime)
+    return render_template('elegirLLegada.html', listaLLegadas=listaLLegadas, salida=salida)
 
+
+@app.route('/elegirFechaIda', methods=['POST', 'GET'])
+def elegirFechaIda():
     salida = request.form.get('salida')
     llegada = request.form.get('llegada')
-    fechaIda = request.form.get('fecha-ida')
-    fechaVuelta = request.form.get('fecha-vuelta')
-    idSeat = request.form.get('idSeat')
-    if salida is not None and llegada is not None and fechaIda is not None and fechaVuelta is not None:
-        flight = Flight.BuscarViaje(salida, llegada, fechaIda, fechaVuelta)
-        if flight:
-            exist = True
+    listaFlight = Flight.BuscarSalidaLLegada(salida, llegada)
+    listaFechaIda = []
+    for item in listaFlight:
+        if item.flightDepartureDatetime not in listaFechaIda:
+            listaFechaIda.append(item.flightDepartureDatetime)
+    return render_template('elegirFechaIda.html', listaFechaIda=listaFechaIda, llegada=llegada, salida=salida)
 
-    listaVuelosUsuario = FlightUser.SelectUsers(user.idUser)
 
-    return render_template('personalizarViaje.html', admin=user.administrador, listaVuelos=listaVuelos,
-                           listaSalidas=listaSalidas, listaLLegadas=listaLLegadas, listaIdas=listaIdas,
-                           listaVueltas=listaVueltas, flight=flight, exist=exist, listaVuelosUsuario=listaVuelosUsuario,
-                           idSeat=idSeat)
+@app.route('/elegirFechaVuelta', methods=['POST', 'GET'])
+def elegirFechaVuelta():
+    salida = request.form.get('salida')
+    llegada = request.form.get('llegada')
+    fechaIda = request.form.get('fechaIda')
+    listaFlight = Flight.BuscarSalidaLLegadaFechaIda(salida, llegada, fechaIda)
+    listaFechaVuelta = []
+    for item in listaFlight:
+        if item.flightArrivalDatetime not in listaFechaVuelta:
+            listaFechaVuelta.append(item.flightArrivalDatetime)
+    return render_template('elegirFechaVuelta.html', listaFechaVuelta=listaFechaVuelta, fechaIda=fechaIda,
+                           llegada=llegada, salida=salida)
+
+
+@app.route('/elegirAsiento', methods=['POST', 'GET'])
+def elegirAsiento():
+    salida = request.form.get('salida')
+    llegada = request.form.get('llegada')
+    fechaIda = request.form.get('fechaIda')
+    fechaVuelta = request.form.get('fechaVuelta')
+    listaFlight = Flight.BuscarSalidaLLegadaFechaIdaFechaVuelta(salida, llegada, fechaIda, fechaVuelta)
+    asientos = Seats.SelectSeats()
+    listaAsientos = []
+    for item in listaFlight:
+        for item2 in asientos:
+            if item2.Model.code == item.Plane.Model.code:
+                listaAsientos.append(item2)
+    return render_template('elegirAsiento.html', listaAsientos=listaAsientos, salida=salida, llegada=llegada,
+                           fechaIda=fechaIda, fechaVuelta=fechaVuelta)
 
 
 @app.route('/reservarViaje', methods=['POST', 'GET'])
@@ -133,7 +170,8 @@ def reservarViaje():
     user = User.SelectUserID(session['idUser'])
     seat = Seats.SelectSeatsID(idSeat)
     flightUser = FlightUser(flight, user, seat)
-    flightUser.InsertFlightUser()
+    if flightUser not in FlightUser.SelectFlightUser():
+        flightUser.InsertFlightUser()
     return redirect('home')
 
 

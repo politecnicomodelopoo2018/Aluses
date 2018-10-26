@@ -74,7 +74,7 @@
             <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             {% if active == True %}
               <button type="button" name="button">Reserva tu pasaje</button>
-            {% endif%}
+
           </article>
         </div> <!-- contenedor -->
       <aside class="reservations">
@@ -85,11 +85,11 @@
               {{item.FlightObj.arrival}}
             </ul>
           {% endfor %}
-
+          {% endif %}
 
         {% if active == True %}
           <div class="travel">
-            <a href="/personalizaTuViaje"><button class="travel" type="button" name="travelButton">Crea tu viaje</button></a>
+            <a href="/elegirSalida"><button class="travel" type="button" name="travelButton">Crea tu viaje</button></a>
           </div>
         {% endif %}
       </aside>

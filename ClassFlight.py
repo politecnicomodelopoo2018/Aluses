@@ -62,6 +62,72 @@ class Flight(object):
         return flight
 
     @staticmethod
+    def BuscarSalida(salida):
+        Database = DB()
+        flightsCursor = Database.run("SELECT * FROM Flight WHERE departure = %s", (str(salida)))
+        flightsDict = flightsCursor.fetchall()
+        flightList = []
+        if flightsDict is not None:
+            for item in flightsDict:
+                tmpFlight = Flight.GetFlight(item)
+                flight = Flight(tmpFlight[0], tmpFlight[1], tmpFlight[2], tmpFlight[3], tmpFlight[4], tmpFlight[5],
+                                tmpFlight[6])
+                flightList.append(flight)
+            return flightList
+        return None
+
+    @staticmethod
+    def BuscarSalidaLLegada(salida, llegada):
+        Database = DB()
+        flightsCursor = Database.run("SELECT * FROM Flight WHERE departure = %s  and arrival = %s", (str(salida),
+                                                                                                     str(llegada)))
+        flightsDict = flightsCursor.fetchall()
+        flightList = []
+        if flightsDict is not None:
+            for item in flightsDict:
+                tmpFlight = Flight.GetFlight(item)
+                flight = Flight(tmpFlight[0], tmpFlight[1], tmpFlight[2], tmpFlight[3], tmpFlight[4], tmpFlight[5],
+                                tmpFlight[6])
+                flightList.append(flight)
+            return flightList
+        return None
+
+    @staticmethod
+    def BuscarSalidaLLegadaFechaIda(salida, llegada, fechaIda):
+        Database = DB()
+        flightsCursor = Database.run("SELECT * FROM Flight WHERE departure = %s  and arrival = %s and "
+                                     "flightDepartureDatetime = %s",
+                                     (str(salida), str(llegada), str(datetime.strptime(fechaIda, '%Y-%m-%d %H:%M:%S'))))
+        flightsDict = flightsCursor.fetchall()
+        flightList = []
+        if flightsDict is not None:
+            for item in flightsDict:
+                tmpFlight = Flight.GetFlight(item)
+                flight = Flight(tmpFlight[0], tmpFlight[1], tmpFlight[2], tmpFlight[3], tmpFlight[4], tmpFlight[5],
+                                tmpFlight[6])
+                flightList.append(flight)
+            return flightList
+        return None
+
+    @staticmethod
+    def BuscarSalidaLLegadaFechaIdaFechaVuelta(salida, llegada, fechaIda, fechaVuelta):
+        Database = DB()
+        flightsCursor = Database.run("SELECT * FROM Flight WHERE departure = %s  and arrival = %s and "
+                                     "flightDepartureDatetime = %s and flightArrivalDatetime = %s;",
+                                     (str(salida), str(llegada), str(datetime.strptime(fechaIda, '%Y-%m-%d %H:%M:%S')),
+                                      str(datetime.strptime(fechaVuelta, '%Y-%m-%d %H:%M:%S'))))
+        flightsDict = flightsCursor.fetchall()
+        flightList = []
+        if flightsDict is not None:
+            for item in flightsDict:
+                tmpFlight = Flight.GetFlight(item)
+                flight = Flight(tmpFlight[0], tmpFlight[1], tmpFlight[2], tmpFlight[3], tmpFlight[4], tmpFlight[5],
+                                tmpFlight[6])
+                flightList.append(flight)
+            return flightList
+        return None
+
+    @staticmethod
     def BuscarViaje(salida, llegada, fechaIda, fechaVuelta):
         Database = DB()
         flightsCursor = Database.run("SELECT * FROM Flight WHERE departure = %s  and arrival = %s and "

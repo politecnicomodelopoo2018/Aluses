@@ -5,6 +5,8 @@
     <title>home</title>
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="/static/css/viaje.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/static/JavaScript/viaje.js"></script>
 </head>
 <body>
     <header>
@@ -20,18 +22,17 @@
           </aside>
       </div>
     </header>
-    <main class="clearfix">
-          <form action="/reservarViaje" method="post">
-            <input type="text" name="idFlight" value="{{flight.idFlight}}" readonly hidden>
-            <input type="text" name="departure" value="{{flight.departure}}" readonly>
-            <input type="text" name="arrival" value="{{flight.arrival}}" readonly>
-            <input type="text" name="idPlane" value="{{flight.Plane.idPlane}}" readonly hidden>
-            <input type="text" name="flightDepartureDatetime" value="{{flight.flightDepartureDatetime}}" readonly>
-            <input type="text" name="flightArrivalDatetime" value="{{flight.flightArrivalDatetime}}" readonly>
-            <input type="text" name="idSeat" value="{{idSeat}}" readonly hidden>
-            <button type="sumbit" class="button reservar">Confirmar</button>
-          </form>
-      </main>
+    <main>
+      <form class="form" action="/elegirLLegada" method="post">
+        <select class="Salida" name="salida">
+          <option value="-"> -- Seleccione de donde salir -- </option>
+          {% for item in listaSalidas %}
+            <option value="{{item}}">{{item}}</option>
+          {% endfor %}
+        </select>
+        <button type="submit" name="button" value="continue">Continue</button>
+      </form>
+    </main>
       <footer>
         <div class="clearfix">
           <h2>Nuestras redes</h2>

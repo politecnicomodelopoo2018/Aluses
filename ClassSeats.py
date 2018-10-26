@@ -6,7 +6,7 @@ class Seats(object):
     def __init__(self, seatNumber, Model, seatClass):
         self.seatNumber = seatNumber
         self.Model = Model
-        self.seatClass = seatClass  # Primera, bussines, economica
+        self.seatClass = seatClass
 
     def InsertSeats(self):
         Database = DB()
