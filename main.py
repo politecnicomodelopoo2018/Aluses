@@ -11,11 +11,9 @@ app = Flask(__name__)
 app.secret_key = 'AlusesKey'
 
 Database = DB()
-Database.SetConnection("localhost", "root", "Patuco20", "Aluses")
+Database.SetConnection("localhost", "root", "alumno", "Aluses")
 
 
-# user = User('Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1)  # ya esta creado, solo para fijarse nombre y contra
-# user.InsertUser('Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1)
 # user = User('Sebastian', 'Elustondo', 'sebastianelustondo@gmail.com', 'Patuco20', 1)  # ya esta creado, solo para fijarse nombre y contra
 # user.InsertUser('Sebastian', 'Elustondo', 'sebastianelustondo@gmail.com', 'Patuco20', 1)
 
@@ -170,7 +168,7 @@ def reservarViaje():
     user = User.SelectUserID(session['idUser'])
     seat = Seats.SelectSeatsID(idSeat)
     flightUser = FlightUser(flight, user, seat)
-    if flightUser not in FlightUser.SelectFlightUser():  # revisar que ande
+    if flightUser not in FlightUser.SelectFlightUser():
         flightUser.InsertFlightUser()
     return redirect('home')
 
@@ -470,3 +468,15 @@ def deleteFlightUser():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+listaVuelos = Flight.SelectFlights()
+listaSalidas = []
+for item in listaVuelos:
+
+    if item.departure not in listaSalidas:
+        listaSalidas.append(item.departure)
+        print(item.idFlight)
+        print(item.departure)
+for item in listaSalidas:
+    pass
