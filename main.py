@@ -9,9 +9,9 @@ from ClassFlightUser import FlightUser
 
 app = Flask(__name__)
 app.secret_key = 'AlusesKey'
-# mostrar bustacas para seleccionar(super bado)
+
 Database = DB()
-Database.SetConnection("localhost", "root", "alumno", "Aluses")
+Database.SetConnection("localhost", "root", "Patuco20", "Aluses")
 
 
 # user = User('Nicolas', 'Pruscino', 'nicolasPruscino@gmail.com', 'nico123', 1)  # ya esta creado, solo para fijarse nombre y contra
@@ -170,9 +170,17 @@ def reservarViaje():
     user = User.SelectUserID(session['idUser'])
     seat = Seats.SelectSeatsID(idSeat)
     flightUser = FlightUser(flight, user, seat)
-    if flightUser not in FlightUser.SelectFlightUser():
+    if flightUser not in FlightUser.SelectFlightUser():  # revisar que ande
         flightUser.InsertFlightUser()
     return redirect('home')
+
+
+@app.route('/confirmarReserva', methods=['POST', 'GET'])
+def confirmarReserva():
+    idFlight = request.args.get('idFlight')
+    idSeat = request.args.get('idSeat')
+    flight = Flight.SelectFlightsID(idFlight)
+    return render_template('personalizarViaje.html', flight=flight, idSeat=idSeat)
 
 
 @app.route('/user')
